@@ -1,0 +1,73 @@
+package com.xworkz.parking.util;
+
+import java.util.Properties;
+
+import javax.mail.Authenticator;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+
+import org.springframework.stereotype.Component;
+
+import com.google.protobuf.Message;
+import com.xworkz.parking.dto.UserInfoDTO;
+import com.xworkz.parking.dto.UserParkingInfoDTO;
+
+@Component
+public class UserParkingEmail {
+	
+	private String host;
+	private String user;
+	private String password;
+	private String to;
+	private String port;
+	
+	public boolean sendMail(String email, String name, UserParkingInfoDTO userParkingInfoDTO) {
+		host = "smtp.office365.com";
+		user = "";
+		password = "";
+		to = email;
+		port = "587";
+		
+		Properties properties = new Properties();
+		properties.put("mail.smtp.host", "smtp.office365.com");
+		properties.put("mail.smtp.port", port);
+		properties.put("mail.smtp.starttls.enable", "true");
+		properties.put("mail.smtp.auth", "true");
+		properties.put("mail.debug", "true");
+		properties.put("mail.transport.protocal", "smtp");
+		
+		Session session = Session.getDefaultInstance(properties, new Authenticator() {
+			protected javax.mail.PasswordAuthentication getPasswordAuthentication(){
+				return new javax.mail.PasswordAuthentication(user, password);
+			}
+		});
+		
+		try {
+			MimeMessage message = new MimeMessage(session);
+			message.setFrom(new InternetAddress(user));
+			//message.setRecipient(Message.RecipientType.TO, new InternetAddress(to));
+			message.setSubject("User Parking Login Confirmation");
+			message.setContent("<h1>Hello " + name + ", you are registered successfully!<h1/>" 
+					+"<h5>Your Parking Details:</h5>"
+					+"Location: "+userParkingInfoDTO.getLocation()+"<br/>"
+					+"Type: "+userParkingInfoDTO.getType()+"<br/>"
+					+"Classification: "+userParkingInfoDTO.getClassification()+"<br/>"
+					+"terms: "+userParkingInfoDTO.getTerms()+"<br/>"
+					+"Total Amount: "+userParkingInfoDTO.getTotalAmount()+"<br/>"
+					+"<b>Thanks & Regards</b>,<br/>"
+					+"x=workz", "text/html");
+					
+			
+			
+			
+		} catch (MessagingException e) {
+			e.printStackTrace();
+		}
+		
+		return false;
+		
+	}
+
+}

@@ -1,0 +1,23 @@
+@charset "UTF-8";
+
+ /* Add some padding on document's body to prevent the content
+    to go underneath the header and footer */
+ 	body{        
+        padding-top: 80px;
+        padding-bottom: 60px;
+    }
+    .container{
+        width: 80%;
+        margin: 0 auto; /* Center the DIV horizontally */
+    }
+    .fixed-header, .fixed-footer{
+        width: 100%;
+        position: fixed;        
+ 
+    }
+    .fixed-header{
+        top: 0;
+    }
+    .fixed-footer{
+        bottom: 0;
+    }    

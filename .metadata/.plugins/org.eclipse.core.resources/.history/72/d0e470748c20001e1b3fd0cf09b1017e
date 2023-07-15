@@ -1,0 +1,48 @@
+package com.xworkz.parking.controller;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.xworkz.parking.dto.UserInfoDTO;
+import com.xworkz.parking.dto.UserParkingInfoDTO;
+import com.xworkz.parking.entity.UserInfoEntity;
+import com.xworkz.parking.services.ParkingServices;
+
+import lombok.extern.slf4j.Slf4j;
+
+@Controller
+@RequestMapping("/")
+@Slf4j
+public class UserParkingInfoController {
+
+	@Autowired
+	private ParkingServices parkingServices;
+	
+	@PostMapping(value ="/user")
+	public String userSave(UserInfoDTO userInfoDTO,UserParkingInfoDTO userParkingInfoDTO, Model model) {
+		  log.info("running userSave method in UserParkingInfoController...");
+		 boolean status = this.parkingServices.userSaveAndValidate(userInfoDTO, userParkingInfoDTO);
+		 if(status) {
+			 model.addAttribute("usermsg", "infomaton for "+userInfoDTO.getName()+" save successfully");
+		 }else {
+			 model.addAttribute("error", "Email-id is already exist");	
+		 }		  
+		return "/UserInfo.jsp";
+	}
+	
+	@PostMapping("/user-login")
+	public String sendOTP(@RequestParam("email") String email, Model model, UserInfoEntity userInfoEntity) {
+		log.info("Running send otp method..");	
+		this.parkingServices.userSign(email, userInfoEntity);
+		model.addAttribute("successMsg", "OTP send to email successfully");
+		return "/UserLogin.jsp";
+	}
+
+}

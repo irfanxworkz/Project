@@ -1,0 +1,124 @@
+package com.xworkz.parking.services;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.xworkz.parking.dto.ParkingDTO;
+import com.xworkz.parking.dto.ParkingInfoDTO;
+import com.xworkz.parking.dto.UserInfoDTO;
+import com.xworkz.parking.dto.UserParkingInfoDTO;
+import com.xworkz.parking.entity.ParkingEntity;
+import com.xworkz.parking.entity.ParkingInfoEntity;
+import com.xworkz.parking.entity.UserInfoEntity;
+import com.xworkz.parking.entity.UserParkingInfoEntity;
+import com.xworkz.parking.repository.ParkingRepository;
+
+import lombok.extern.slf4j.Slf4j;
+
+@Service
+@Slf4j
+public class ParkingServicesImpl implements ParkingServices {
+
+	@Autowired
+	private ParkingRepository repo;
+
+	public ParkingServicesImpl() {
+		log.info("Creating no-arg Constructor Using ParkingServicesImpl!!!");
+	}
+
+	@Override
+	public ParkingDTO loginAdmin(String email, String password) {
+		log.info("Running login method in ParkingServicesImpl... ");
+		ParkingEntity entiy = this.repo.loginAdmin(email);
+		if (entiy != null) {
+			if (entiy.getEmail().equals(email) && entiy.getPassword().equals(password)) {
+				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yy hh:mm:ss");
+				entiy.setLoginTime(LocalDateTime.now().format(formatter));
+				ParkingDTO dto = new ParkingDTO();
+				BeanUtils.copyProperties(entiy, dto);
+				return dto;
+			} else {
+				log.info("not a valid credential");
+				return null;
+			}
+		} else {
+			log.info("no data found");
+			return null;
+		}
+	}
+
+	@Override
+	public boolean adminSaveAndValidate(ParkingInfoDTO parkingInfoDTO) {
+		ParkingInfoEntity parkingInfoEntity = new ParkingInfoEntity();
+
+		BeanUtils.copyProperties(parkingInfoDTO, parkingInfoEntity);
+		log.info("Info Entity:" + parkingInfoEntity);
+		return this.repo.saveAdmin(parkingInfoEntity);
+	}
+
+	@Override
+	public List<ParkingInfoDTO> findByLocationAdmin(String location) {
+		List<ParkingInfoEntity> entities = this.repo.findByLocationAdmin(location);
+
+		List<ParkingInfoDTO> dtos = entities.stream().map(ent -> {
+			ParkingInfoDTO dto = new ParkingInfoDTO();
+			BeanUtils.copyProperties(ent, dto);
+			return dto;
+		}).collect(Collectors.toList());
+		return dtos;
+	}
+
+	@Override
+	public boolean userSaveAndValidate(UserInfoDTO userInfoDTO, UserParkingInfoDTO userParkingInfoDTO) {
+		log.info("running userSaveAndValidate() in ParkingSrervicesImpl...");
+		
+		UserInfoEntity record = this.repo.findByUserEmail(userInfoDTO.getEmail());
+		if(record == null) {
+			
+			UserInfoEntity userInfoEntity = new UserInfoEntity();
+			BeanUtils.copyProperties(userInfoDTO, userInfoEntity);
+			boolean saveUserInfo = this.repo.saveUserInfo(userInfoEntity);
+			//System.out.println("parking user info" + saveUserInfo);
+			log.info("UserInfoEntity: " + saveUserInfo);
+			
+			UserParkingInfoEntity userParkingInfoEntity = new UserParkingInfoEntity();
+			UserInfoEntity userByEmail = this.repo.findByUserEmail(userInfoDTO.getEmail());
+			userParkingInfoDTO.setUserId(userByEmail.getId());
+			BeanUtils.copyProperties(userParkingInfoDTO, userParkingInfoEntity);
+			boolean saveUserParkingInfo = this.repo.saveUserParkingInfo(userParkingInfoEntity);
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public ParkingInfoDTO findByLocationTypeClassificationTerm(String location, String type, String classification,
+			String term) {
+		log.info("running findByLocationTypeClassificationTerm() method in ParkingServicesImpl...");
+		ParkingInfoEntity parkingInfoEntity = repo.findByLocationTypeClassificationTerm(location, type, classification,
+				term);
+		if (parkingInfoEntity != null) {
+			log.info("data is already exist");
+			ParkingInfoDTO parkingInfoDTO = new ParkingInfoDTO();
+			BeanUtils.copyProperties(parkingInfoEntity, parkingInfoDTO);
+			return parkingInfoDTO;
+		}
+		return null;
+	}
+
+	@Override
+	public boolean findByUserEmail(String email) {
+		log.info("running findByUserEmail() in ParkingServicesImpl...");
+		UserInfoEntity userInfoEntity = repo.findByUserEmail(email);
+		if (userInfoEntity != null) {
+			return true;
+		}
+		return false;
+	}
+}

@@ -1,0 +1,13 @@
+package com.xworkz.contact.entity;
+
+import lombok.Data;
+
+@Data
+public class ContactEntity {
+
+	private String name;
+	private String email;
+	private String mobile;
+	private String comments;
+	private String file;
+}

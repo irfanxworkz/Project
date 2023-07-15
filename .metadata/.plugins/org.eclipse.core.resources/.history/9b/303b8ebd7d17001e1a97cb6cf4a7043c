@@ -1,0 +1,106 @@
+package com.xworkz.parking.services;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.xworkz.parking.dto.ParkingDTO;
+import com.xworkz.parking.dto.ParkingInfoDTO;
+import com.xworkz.parking.dto.ParkingUserDTO;
+import com.xworkz.parking.entity.ParkingEntity;
+import com.xworkz.parking.entity.ParkingInfoEntity;
+import com.xworkz.parking.entity.UserInfoEntity;
+import com.xworkz.parking.entity.UserParkingInfoEntity;
+import com.xworkz.parking.repository.ParkingRepository;
+
+import lombok.extern.slf4j.Slf4j;
+
+@Service
+@Slf4j
+public class ParkingServicesImpl implements ParkingServices {
+
+	@Autowired
+	private ParkingRepository repo;
+	
+	private ParkingInfoEntity parkingInfoEntity;
+
+	public ParkingServicesImpl() {
+		//log.info("Creating no-arg Constructor Using ParkingServicesImpl!!!");
+	}
+
+
+	@Override
+	public ParkingDTO login(String email, String password) {
+		//log.info("Running login method in ParkingServicesImpl... ");
+		ParkingEntity entiy = this.repo.login(email);
+		if(entiy!=null) {
+		if (entiy.getEmail().equals(email) && entiy.getPassword().equals(password)) {
+			DateTimeFormatter formatter=DateTimeFormatter.ofPattern("MM/dd/yy hh:mm:ss");
+			entiy.setLoginTime(LocalDateTime.now().format(formatter));
+			ParkingDTO dto = new ParkingDTO();
+			BeanUtils.copyProperties(entiy, dto);
+			return dto;
+		}else {
+			//log.info("not a valid credential");
+			return null;
+		}
+		}else {
+			//log.info("no data found");	
+			return null;
+		}
+	}
+	
+	@Override
+	public ParkingUserDTO update(String userLocation, String userType, String userClassification, String userTerms) {
+		
+		UserParkingInfoEntity userParkingInfoEntity = this.repo.update(userType);
+		BeanUtils.copyProperties(userParkingInfoEntity, parkingInfoEntity);
+		if(userParkingInfoEntity !=null) {
+			if(userParkingInfoEntity.getUserLocation().equals(userLocation) && userParkingInfoEntity.getUserType().equals(userType) && userParkingInfoEntity.getUserClassification().equals(userClassification) && userParkingInfoEntity.getUserTerms().equals(userTerms)) {
+				ParkingUserDTO parkingUserDTO = new ParkingUserDTO();
+				BeanUtils.copyProperties(userParkingInfoEntity, parkingUserDTO);
+				return parkingUserDTO;
+			}
+			else {
+				return null;
+			}
+		}
+		
+		return null;
+	}
+
+	@Override
+	public boolean saveAndValidate(ParkingInfoDTO parkingInfoDTO) {
+		ParkingInfoEntity parkingInfoEntity = new ParkingInfoEntity();
+		
+		BeanUtils.copyProperties(parkingInfoDTO, parkingInfoEntity);
+		log.info("Info Entity:"+parkingInfoEntity);				
+		return this.repo.save(parkingInfoEntity);
+	}
+	
+	@Override
+	public List<ParkingInfoDTO> findByLocation(String location) {
+		List<ParkingInfoEntity> entities = this.repo.findByLocation(location);
+		
+		List<ParkingInfoDTO> dtos = entities.stream().map(ent ->{
+			ParkingInfoDTO dto = new ParkingInfoDTO();
+			BeanUtils.copyProperties(ent, dto);
+			return dto;
+		}).collect(Collectors.toList());
+		return dtos;
+	}
+
+
+	@Override
+	public boolean userSaveAndValidate(ParkingUserDTO parkingUserDTO) {
+		UserInfoEntity userInfoEntity= new UserInfoEntity();
+		BeanUtils.copyProperties(parkingUserDTO, userInfoEntity);
+		log.info("Info Entity:"+userInfoEntity);				
+		return this.repo.userSave(userInfoEntity);
+	}
+}
