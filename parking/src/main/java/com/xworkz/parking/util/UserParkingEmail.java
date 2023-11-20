@@ -33,7 +33,7 @@ public class UserParkingEmail {
 		log.info("running sendMail");
 		hostName = "smtp.office365.com";
 		user = "irfankhan2690@outlook.com";
-		password = "IRas@1234";
+		password = "IRas@0409";
 		to = email;
 		portNumber = "587";
 		
@@ -82,7 +82,7 @@ public class UserParkingEmail {
 		String portNumber = "587";
 		String hostName = "smtp.office365.com";
 		final String fromEmail= "irfankhan2690@outlook.com";
-		final String password = "IRas@1234";
+		final String password = "KHan@1234";
 		String to = email;
 		
 		Properties properties=new Properties();
@@ -105,7 +105,6 @@ public class UserParkingEmail {
 		try {
 			String otp = new DecimalFormat("000000").format(new Random().nextInt(999999));
 			log.info(otp);
-			//oneTimePassword = otp;
 			userInfoEntity.setOneTimePassword(otp);
 			
 			message.setFrom(new InternetAddress(fromEmail));

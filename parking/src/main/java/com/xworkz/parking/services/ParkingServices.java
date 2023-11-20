@@ -7,6 +7,7 @@ import com.xworkz.parking.dto.ParkingInfoDTO;
 import com.xworkz.parking.dto.UserInfoDTO;
 import com.xworkz.parking.dto.UserParkingInfoDTO;
 import com.xworkz.parking.entity.UserInfoEntity;
+import com.xworkz.parking.entity.UserParkingInfoEntity;
 
 public interface ParkingServices {
 	
@@ -30,9 +31,20 @@ public interface ParkingServices {
 		return false;
 	}
 	
-	boolean sendOTP(String email, UserInfoEntity userInfoEntity);
+	default UserInfoDTO sendOTP(String email, UserInfoEntity userInfoEntity) {
+		return null;
+	}
 	
 	default UserInfoDTO loginUser(String email,String oneTimePassword) {
 		return null;	
 	}
+	
+	  default UserParkingInfoDTO findByUserId(String email,int userId) { 
+		return null;
+		
+	  }
+
+
+	  
+
 }

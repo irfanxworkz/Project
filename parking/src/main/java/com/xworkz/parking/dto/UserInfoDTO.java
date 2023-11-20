@@ -1,7 +1,6 @@
 package com.xworkz.parking.dto;
 
 import java.io.Serializable;
-import java.sql.Date;
 import java.time.LocalDate;
 
 import lombok.Data;
@@ -17,6 +16,8 @@ public class UserInfoDTO implements Serializable,Comparable<UserInfoDTO>{
 	private String oneTimePassword;
 	
 	private LocalDate otpRequstedTime;
+	
+	private String loginTime;
 
 	@Override
 	public int compareTo(UserInfoDTO o) {

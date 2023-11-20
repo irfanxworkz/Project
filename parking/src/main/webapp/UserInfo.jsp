@@ -83,7 +83,7 @@
 		<nav class="navbar navbar-dark bg-secondary justify-content-between">
 			<img src="https://w7.pngwing.com/pngs/974/17/png-transparent-car-park-parking-computer-icons-parking-text-rectangle-logo-thumbnail.png" alt="" width="60" height="60"> 
 		    <a href="User.jsp" class="btn btn-info" type="button">Home</a>
-		    <a href="UserLogin.jsp" class="btn btn-info" type="button" style="margin-right: 1100px;">Login</a>
+		    <a href="UserOTP.jsp" class="btn btn-info" type="button" style="margin-right: 1100px;">Login</a>
 		</nav>	
 	</div>
 </header>
@@ -92,7 +92,7 @@
 <div class="container">
 	<form action="user" method="post" onsubmit="return validateFields()" style="background-color: white; margin-top: 10px;margin-bottom: 10px; margin-left: 200px; margin-right: 200px; border: 1px solid black; border-radius: 10px;">
 		
-		<span style="color: green;">${usermsg }</span> 	 
+		<span style="margin-left: 70px; color: blue;">${usermsg }</span> 	 
 	 	<span style="color: red;" id="display"></span><a id="here" href="UserLogin.jsp"></a>
 		<h1 style="color: red; text-align: center;" >User Information</h1>
 		<div class="container">

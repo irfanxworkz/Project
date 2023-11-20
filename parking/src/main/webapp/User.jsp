@@ -4,7 +4,7 @@
 <html>
 <head >
 <meta charset="UTF-8">
-<title>Parking-Home</title>
+<title>User-Page</title>
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css">
 	<link rel="stylesheet" href="Parking.css">
@@ -13,7 +13,7 @@
 	<div class="fixed-header">
 		<nav class="navbar navbar-dark bg-secondary justify-content-between">
 			<img src="https://w7.pngwing.com/pngs/974/17/png-transparent-car-park-parking-computer-icons-parking-text-rectangle-logo-thumbnail.png" alt="" width="60" height="60">
-		    <a href="UserLogin.jsp" class="btn btn-info" type="button">User-Login</a>
+		    <a href="UserOTP.jsp" class="btn btn-info" type="button">User-Login</a>
 			<a href="UserInfo.jsp" class="btn btn-info" type="button" style="margin-right: 1050px;">Registration</a>
 		</nav>
 	</div>		

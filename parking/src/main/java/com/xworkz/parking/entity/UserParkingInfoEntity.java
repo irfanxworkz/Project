@@ -16,10 +16,12 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "userparkinginfo")
+@NamedQuery(name = "findByUserId",query = "select id from UserParkingInfoEntity id where id.userId=:uid")
 public class UserParkingInfoEntity implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
 	private int userId;
 	private String location;
 	private String type;

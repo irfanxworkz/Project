@@ -1,10 +1,9 @@
 package com.xworkz.parking.entity;
 
 import java.io.Serializable;
-import java.sql.Date;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,6 +18,7 @@ import lombok.Data;
 @Entity
 @NamedQuery(name = "findByUserEmail", query ="select userEmail from UserInfoEntity userEmail where userEmail.email=:mail")
 @NamedQuery(name = "updateOTP", query = "update UserInfoEntity otp set otp.oneTimePassword=:onetime where otp.email=:email")
+@NamedQuery(name = "findByOTP", query = "select findotp from UserInfoEntity findotp where findotp.oneTimePassword=:fotp")
 public class UserInfoEntity implements Serializable{
 	
 	@Id
@@ -28,7 +28,9 @@ public class UserInfoEntity implements Serializable{
 	private String email;
 	private long mobile;
 	
-	private static final long OTP_VALID_DURATION = 5 * 60 * 1000;
+	private String loginTime;
+	
+	//private static final long OTP_VALID_DURATION = 5 * 60 * 1000;
 	
 	private String oneTimePassword;
 	

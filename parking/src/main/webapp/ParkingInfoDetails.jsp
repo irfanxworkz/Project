@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>AdminPanel</title>
+<title>Admin Panel</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="Parking.css">
 
@@ -51,7 +51,7 @@
 	 <footer class="bg-secondary text-white" style="margin-top: 547px;">
 	    <div class="text-center p-3" style="background-color: secondary;">
 	      © 2023 Copyright:
-	      <a class="text-white" href="https://irfan.xworkz@gmail.com/">irfan.xworkz@gmail.com</a>
+	      <a class="text-white" href="https://irfan.xworkz@gmail.com/">irfan.xworkz@gmail.com</a> <span style="color: orange;">[LoginTime: ${adminDTOS.loginTime }]</span>
 	    </div>
 	  </footer>
 </div>	  

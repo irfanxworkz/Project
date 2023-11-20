@@ -95,7 +95,7 @@ public class ParkingRepositoryImpl implements ParkingRepository {
 		}
 		return true;
 	}
-	
+
 	@Override
 	public boolean saveUserParkingInfo(UserParkingInfoEntity userParkingInfoEntity) {
 		log.info("running saveUserParkingInfo() method...");
@@ -111,7 +111,8 @@ public class ParkingRepositoryImpl implements ParkingRepository {
 		} finally {
 			manager.close();
 		}
-		return true;	}
+		return true;
+	}
 
 	@Override
 	public ParkingInfoEntity findByLocationTypeClassificationTerm(String location, String type, String classification,
@@ -125,25 +126,25 @@ public class ParkingRepositoryImpl implements ParkingRepository {
 		query.setParameter("trm", term);
 		try {
 			Object entity = query.getSingleResult();
-			return (ParkingInfoEntity)entity;
+			return (ParkingInfoEntity) entity;
 		} catch (Exception e) {
 			log.info("no record found");
 			return null;
 		}
 	}
-	
+
 	@Override
 	public UserInfoEntity findByUserEmail(String email) {
 		log.info("running findByUserEmail()...");
 		EntityManager manager = entityManagerFactory.createEntityManager();
-		Query query=manager.createNamedQuery("findByUserEmail");
+		Query query = manager.createNamedQuery("findByUserEmail");
 		query.setParameter("mail", email);
 		try {
-			Object object=query.getSingleResult();
-			return (UserInfoEntity)object;
+			Object object = query.getSingleResult();
+			return (UserInfoEntity) object;
 		} catch (Exception e) {
 			return null;
-		}finally {
+		} finally {
 			manager.close();
 		}
 	}
@@ -156,12 +157,12 @@ public class ParkingRepositoryImpl implements ParkingRepository {
 		Query query = manager.createNamedQuery("updateOTP");
 		query.setParameter("email", email);
 		query.setParameter("onetime", oneTimePassword);
-		int i =query.executeUpdate();
+		int i = query.executeUpdate();
 		manager.getTransaction().commit();
 		manager.close();
 		return true;
 	}
-	
+
 	@Override
 	public UserInfoEntity loginUser(String email) {
 		try {
@@ -176,4 +177,17 @@ public class ParkingRepositoryImpl implements ParkingRepository {
 			return null;
 		}
 	}
-}	
+
+	@Override
+	public UserParkingInfoEntity findByUserId(int userId) {
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		Query query = entityManager.createNamedQuery("findByUserId");
+		query.setParameter("uid", userId);
+		try {
+			Object object = query.getSingleResult();
+			return (UserParkingInfoEntity) object;
+		} catch (Exception e) {
+			return null;
+		}
+	}
+}

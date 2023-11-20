@@ -8,11 +8,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.xworkz.parking.dto.UserInfoDTO;
 import com.xworkz.parking.dto.UserParkingInfoDTO;
 import com.xworkz.parking.entity.UserInfoEntity;
+import com.xworkz.parking.entity.UserParkingInfoEntity;
 import com.xworkz.parking.services.ParkingServices;
 
 import lombok.extern.slf4j.Slf4j;
@@ -37,32 +37,37 @@ public class UserParkingInfoController {
 		return "/UserInfo.jsp";
 	}
 	
-	@PostMapping(value = "/user-login", params = "otp")
-	public String sendOTP(String email, Model model, UserInfoEntity userInfoEntity ,UserInfoDTO userInfoDTO) {
+	
+	@PostMapping(value = "/userotp")
+	public String sendOTP(String email,UserInfoEntity userInfoEntity, Model model, HttpServletRequest req) {
 		log.info("Running send otp method..");
-		if(userInfoEntity.getEmail().equals(email)) {
-			this.parkingServices.sendOTP(email, userInfoEntity);
-			model.addAttribute("otpmsg", "OTP send to email successfully");
+		UserInfoDTO userInfoDTO2=this.parkingServices.sendOTP(email, userInfoEntity);
+		if(userInfoDTO2 != null) {
+			HttpSession session=req.getSession(true);
+			session.setAttribute("utp", userInfoDTO2);
+			model.addAttribute("otpmsg", "Enter OTP Send to user mail id");
 			return "/UserLogin.jsp";
 		}else {
 			model.addAttribute("otpmsg1", "OTP send failed");
-			return "/UserLogin.jsp";
+			return "/UserOTP.jsp";
 		}
 		
 	}
-	
-	@PostMapping(value = "/user-login", params = "login")
-	public String userLogin(UserInfoDTO userInfoDTO, Model model, HttpServletRequest req) {
+	@PostMapping(value = "/userlogin")
+	public String userLogin(String email,String oneTimePassword,/* int userId,*/ Model model, HttpServletRequest req) {
 		log.info("Running userLogin() method in UserParkingInfoController...");
-		UserInfoDTO userInfoDTO2 = this.parkingServices.loginUser(userInfoDTO.getEmail(),userInfoDTO.getOneTimePassword());
-		if (userInfoDTO2 != null) {
-			HttpSession session = req.getSession(true);
-			session.setAttribute("userDtos", userInfoDTO2);
-			return "/UserDetails.jsp";
-		} else {
-			model.addAttribute("userloginmsg", "email or password invalid!!! ");
-			return "/UserLogin.jsp";
-		}
-	}
+			UserInfoDTO userInfoDTO2 = this.parkingServices.loginUser(email,oneTimePassword);
+			//UserParkingInfoDTO userParkingInfoDTO =this.parkingServices.findByUserId(email,userId);
+			if (userInfoDTO2 != null) {
+				HttpSession session = req.getSession(true);
+				session.setAttribute("userInfoDTO", userInfoDTO2);
+				//session.setAttribute("userParkingInfoDTO", userParkingInfoDTO);
+				return "/UserDetails.jsp";
+			} else {
+				model.addAttribute("msg", "OTP is invalid please Enter Correct OTP ");
+				return "/UserLogin.jsp";
+			}
+		} 
 
 }
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  

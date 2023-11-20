@@ -6,10 +6,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,7 +31,7 @@ public class AdminParkingController {
 	}
 
 	@PostMapping(value = "/login")
-	private String findEmail(ParkingDTO dto, Model model, HttpServletRequest req) {
+	private String adminLogin(ParkingDTO dto, Model model, HttpServletRequest req) {
 		log.info("Running findEmail method in ParkingController...");
 		ParkingDTO dto1 = this.parkingServices.loginAdmin(dto.getEmail(), dto.getPassword());
 		if (dto1 != null) {
@@ -47,7 +45,7 @@ public class AdminParkingController {
 	}
 	
 	@PostMapping(value = "/info")
-	private String info(ParkingInfoDTO parkingInfoDTO , Model model ) {
+	private String addParkingInfo(ParkingInfoDTO parkingInfoDTO , Model model ) {
 		
 		model.addAttribute("add", parkingInfoDTO);
 		
@@ -60,7 +58,7 @@ public class AdminParkingController {
 	}
 	
 	@GetMapping(value = "/view")
-	public String onSearch(Model model,String location) {
+	public String findByLocation(Model model,String location) {
 		List<ParkingInfoDTO> list = parkingServices.findByLocationAdmin(location);
 		model.addAttribute("list", list);
 		return "/ViewData.jsp";

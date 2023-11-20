@@ -36,4 +36,9 @@ public interface ParkingRepository {
 	default UserInfoEntity loginUser(String email) {
 		return null;
 	}
+
+	default UserParkingInfoEntity findByUserId(int userId) {
+		return null;
+	}
+
 }
