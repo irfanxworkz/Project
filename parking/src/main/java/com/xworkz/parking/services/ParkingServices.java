@@ -31,7 +31,7 @@ public interface ParkingServices {
 		return false;
 	}
 	
-	default UserInfoDTO sendOTP(String email, UserInfoEntity userInfoEntity) {
+	default UserInfoDTO sendOTP(String email) {
 		return null;
 	}
 	
@@ -39,7 +39,7 @@ public interface ParkingServices {
 		return null;	
 	}
 	
-	  default UserParkingInfoDTO findByUserId(String email,int userId) { 
+	  default UserParkingInfoDTO findByUserId(int userId) { 
 		return null;
 		
 	  }

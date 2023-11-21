@@ -13,7 +13,7 @@
 <header>
 	<div class="fixed-header">
 		<nav class="navbar navbar-dark bg-secondary justify-content-between">
-		    <a  href="" class="btn btn-info" type="button">image</a>
+		    <a  href="UserOTP.jsp" class="btn btn-info" type="button">image</a>
 		    <a style="margin-left: 150px; color: pink;" class="navbar-brand" >Welcome,${userInfoDTO.name}</a>
 <!-- 		<a href="UserOTP.jsp" class="btn btn-info" type="button">Logout</a>
  -->		</nav>

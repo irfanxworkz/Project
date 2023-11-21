@@ -16,7 +16,7 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "userparkinginfo")
-@NamedQuery(name = "findByUserId",query = "select id from UserParkingInfoEntity id where id.userId=:uid")
+@NamedQuery(name = "findByUserId",query = "select entity from UserParkingInfoEntity entity where entity.userId=:uid")
 public class UserParkingInfoEntity implements Serializable{
 	
 	@Id

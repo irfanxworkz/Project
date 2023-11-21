@@ -36,7 +36,7 @@ public class AdminParkingController {
 		ParkingDTO dto1 = this.parkingServices.loginAdmin(dto.getEmail(), dto.getPassword());
 		if (dto1 != null) {
 			HttpSession session = req.getSession(true);
-			session.setAttribute("dtos", dto1);
+			session.setAttribute("adminDTOS", dto1);
 			return "/AdminDetails.jsp";
 		} else {
 			model.addAttribute("msg", "email or password invalid!!! ");
@@ -46,13 +46,8 @@ public class AdminParkingController {
 	
 	@PostMapping(value = "/info")
 	private String addParkingInfo(ParkingInfoDTO parkingInfoDTO , Model model ) {
-		
-		model.addAttribute("add", parkingInfoDTO);
-		
 		parkingServices.adminSaveAndValidate(parkingInfoDTO);
-		
 		model.addAttribute("msg1", "Parking info added Successfully...");
-		
 		return "ParkingInfo.jsp";
 
 	}

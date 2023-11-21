@@ -31,6 +31,7 @@ public class UserParkingInfoController {
 		 boolean status = this.parkingServices.userSaveAndValidate(userInfoDTO, userParkingInfoDTO);
 		 if(status) {
 			 model.addAttribute("usermsg", "infomaton for "+userInfoDTO.getName()+" save successfully");
+	
 		 }else {
 			 model.addAttribute("error", "Email-id is already exist");	
 		 }		  
@@ -39,35 +40,40 @@ public class UserParkingInfoController {
 	
 	
 	@PostMapping(value = "/userotp")
-	public String sendOTP(String email,UserInfoEntity userInfoEntity, Model model, HttpServletRequest req) {
+	public String sendOTP(String email, Model model, HttpServletRequest req) {
 		log.info("Running send otp method..");
-		UserInfoDTO userInfoDTO2=this.parkingServices.sendOTP(email, userInfoEntity);
+		UserInfoDTO userInfoDTO2=this.parkingServices.sendOTP(email);
 		if(userInfoDTO2 != null) {
 			HttpSession session=req.getSession(true);
 			session.setAttribute("utp", userInfoDTO2);
 			model.addAttribute("otpmsg", "Enter OTP Send to user mail id");
 			return "/UserLogin.jsp";
 		}else {
-			model.addAttribute("otpmsg1", "OTP send failed");
+			model.addAttribute("otpmsg1", "User Email id not exist");
 			return "/UserOTP.jsp";
 		}
 		
 	}
+	
+	
 	@PostMapping(value = "/userlogin")
-	public String userLogin(String email,String oneTimePassword,/* int userId,*/ Model model, HttpServletRequest req) {
+	public String userLogin(String email,String oneTimePassword, Model model, HttpServletRequest req) {
 		log.info("Running userLogin() method in UserParkingInfoController...");
+		
 			UserInfoDTO userInfoDTO2 = this.parkingServices.loginUser(email,oneTimePassword);
-			//UserParkingInfoDTO userParkingInfoDTO =this.parkingServices.findByUserId(email,userId);
+			UserParkingInfoDTO userParkingInfoDTO =this.parkingServices.findByUserId(userInfoDTO2.getId());
 			if (userInfoDTO2 != null) {
 				HttpSession session = req.getSession(true);
 				session.setAttribute("userInfoDTO", userInfoDTO2);
-				//session.setAttribute("userParkingInfoDTO", userParkingInfoDTO);
+				session.setAttribute("userParkingInfoDTO", userParkingInfoDTO);
 				return "/UserDetails.jsp";
-			} else {
+			} 
+			else {
+				
 				model.addAttribute("msg", "OTP is invalid please Enter Correct OTP ");
 				return "/UserLogin.jsp";
 			}
-		} 
-
+		
+	}
 }
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   

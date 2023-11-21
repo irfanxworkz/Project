@@ -17,7 +17,7 @@ import lombok.Data;
 @Table(name = "userinfo")
 @Entity
 @NamedQuery(name = "findByUserEmail", query ="select userEmail from UserInfoEntity userEmail where userEmail.email=:mail")
-@NamedQuery(name = "updateOTP", query = "update UserInfoEntity otp set otp.oneTimePassword=:onetime where otp.email=:email")
+@NamedQuery(name = "updateOTP", query = "update UserInfoEntity otp set otp.oneTimePassword=:onetime where otp.email=:mail")
 @NamedQuery(name = "findByOTP", query = "select findotp from UserInfoEntity findotp where findotp.oneTimePassword=:fotp")
 public class UserInfoEntity implements Serializable{
 	

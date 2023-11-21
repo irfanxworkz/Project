@@ -32,10 +32,6 @@ public interface ParkingRepository {
 	}
 	
 	boolean sendOtp(String oneTimePassword, String email);
-	
-	default UserInfoEntity loginUser(String email) {
-		return null;
-	}
 
 	default UserParkingInfoEntity findByUserId(int userId) {
 		return null;

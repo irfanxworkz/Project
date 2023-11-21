@@ -46,24 +46,15 @@ public class ParkingRepositoryImpl implements ParkingRepository {
 
 	@Override
 	public boolean saveAdmin(ParkingInfoEntity parkingInfoEntity) {
-		// EntityManager manager=null;
-		// EntityTransaction transaction = null;
 		EntityManager manager = entityManagerFactory.createEntityManager();
 		try {
 			EntityTransaction transaction = manager.getTransaction();
-			System.out.println("Running save method in ContactRepositoryImpl...");
 			transaction.begin();
-//			manager.merge(parkingInfoEntity);
 			manager.persist(parkingInfoEntity);
 			transaction.commit();
-
 		} catch (PersistenceException e) {
 			e.printStackTrace();
-			// transaction.getRollbackOnly();
-
-		} finally {
-			manager.close();
-		}
+		} 
 		return true;
 	}
 
@@ -84,15 +75,12 @@ public class ParkingRepositoryImpl implements ParkingRepository {
 		EntityManager manager = entityManagerFactory.createEntityManager();
 		try {
 			EntityTransaction transaction = manager.getTransaction();
-			System.out.println("Running save method in ContactRepositoryImpl...");
 			transaction.begin();
 			manager.persist(userInfoEntity);
 			transaction.commit();
 		} catch (PersistenceException e) {
 			e.printStackTrace();
-		} finally {
-			manager.close();
-		}
+		} 
 		return true;
 	}
 
@@ -102,14 +90,11 @@ public class ParkingRepositoryImpl implements ParkingRepository {
 		EntityManager manager = entityManagerFactory.createEntityManager();
 		try {
 			EntityTransaction transaction = manager.getTransaction();
-			System.out.println("Running save method in ContactRepositoryImpl...");
 			transaction.begin();
 			manager.persist(userParkingInfoEntity);
 			transaction.commit();
 		} catch (PersistenceException e) {
 			e.printStackTrace();
-		} finally {
-			manager.close();
 		}
 		return true;
 	}
@@ -144,8 +129,6 @@ public class ParkingRepositoryImpl implements ParkingRepository {
 			return (UserInfoEntity) object;
 		} catch (Exception e) {
 			return null;
-		} finally {
-			manager.close();
 		}
 	}
 
@@ -155,7 +138,7 @@ public class ParkingRepositoryImpl implements ParkingRepository {
 		EntityManager manager = entityManagerFactory.createEntityManager();
 		manager.getTransaction().begin();
 		Query query = manager.createNamedQuery("updateOTP");
-		query.setParameter("email", email);
+		query.setParameter("mail", email);
 		query.setParameter("onetime", oneTimePassword);
 		int i = query.executeUpdate();
 		manager.getTransaction().commit();
@@ -163,20 +146,6 @@ public class ParkingRepositoryImpl implements ParkingRepository {
 		return true;
 	}
 
-	@Override
-	public UserInfoEntity loginUser(String email) {
-		try {
-			EntityManager entityManager = entityManagerFactory.createEntityManager();
-			Query query = entityManager.createNamedQuery("findByUserEmail");
-			query.setParameter("mail", email);
-			Object object = query.getSingleResult();
-			log.info("repo: entity " + object);
-			UserInfoEntity userInfoEntity = (UserInfoEntity) object;
-			return userInfoEntity;
-		} catch (PersistenceException e) {
-			return null;
-		}
-	}
 
 	@Override
 	public UserParkingInfoEntity findByUserId(int userId) {
