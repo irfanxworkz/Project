@@ -8,5 +8,7 @@
 </workingSet>
 <workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1686735049609_2" label="Window Working Set" name="Aggregate for window 1686735049609"/>
 <workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1686739627634_4" label="Window Working Set" name="Aggregate for window 1686739627634"/>
+<workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1700678242900_5" label="Window Working Set" name="Aggregate for window 1700678242900"/>
+<workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1700767922809_6" label="Window Working Set" name="Aggregate for window 1700767922809"/>
 <mruList name="Project"/>
 </workingSetManager>

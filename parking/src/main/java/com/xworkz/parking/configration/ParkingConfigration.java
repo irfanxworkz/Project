@@ -36,8 +36,7 @@ public class ParkingConfigration implements WebMvcConfigurer{
 	@Bean
 	public LocalContainerEntityManagerFactoryBean localContainerEntityManagerFactoryBean() {
 		LocalContainerEntityManagerFactoryBean localContainerEntityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
-		localContainerEntityManagerFactoryBean.setPersistenceUnitName("com.xworkz");
-		return localContainerEntityManagerFactoryBean;
+		return new LocalContainerEntityManagerFactoryBean();
 		
 	}
 }

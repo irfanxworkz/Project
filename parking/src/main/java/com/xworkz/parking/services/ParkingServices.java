@@ -21,7 +21,12 @@ public interface ParkingServices {
 		return null;
 	}
 	
-	boolean userSaveAndValidate(UserInfoDTO userInfoDTO, UserParkingInfoDTO userParkingInfoDTO);
+	default boolean userRegistration(UserInfoDTO userInfoDTO) {
+		return false;
+		
+	}
+	
+	boolean saveUserParkingInfo(String email, UserParkingInfoDTO userParkingInfoDTO);
 	
 	default ParkingInfoDTO findByLocationTypeClassificationTerm(String location, String type, String classification, String term) {
 		return null;
@@ -29,6 +34,10 @@ public interface ParkingServices {
 	
 	default boolean findByUserEmail(String email) {
 		return false;
+	}
+	
+	default List<UserInfoDTO> viewUserData(String email) {
+		return null;
 	}
 	
 	default UserInfoDTO sendOTP(String email) {
@@ -39,10 +48,16 @@ public interface ParkingServices {
 		return null;	
 	}
 	
-	  default UserParkingInfoDTO findByUserId(int userId) { 
+	  default List<UserParkingInfoDTO> findByUserId(int i) { 
 		return null;
 		
 	  }
+
+	default boolean userupdate(UserInfoDTO userInfoDTO, UserParkingInfoDTO userParkingInfoDTO) {
+		return false;
+	}
+
+	
 
 
 	  

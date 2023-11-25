@@ -104,7 +104,7 @@ public class UserParkingEmail {
 		MimeMessage message = new MimeMessage(session);
 		try {
 			String otp = new DecimalFormat("000000").format(new Random().nextInt(999999));
-			log.info(otp);
+			/* log.info(otp); */
 			userInfoEntity.setOneTimePassword(otp);
 			
 			message.setFrom(new InternetAddress(fromEmail));
@@ -117,8 +117,7 @@ public class UserParkingEmail {
 		} catch (MessagingException e) {
 			e.printStackTrace();
 		}
-		return true;
-		
+		return true;	
 	}
 
 }

@@ -20,13 +20,27 @@
 	</div>		
 </header>
 <body>
-				<h1 style="color: green; text-align: center;">User Parking Data</h1>
-	  <table class="table" id="customers">
+
+		<h1 style="color: black; text-align: center;">User Information</h1>
+	<table class="table" id="customers">
 		<tr >
 			<th>Id</th>
 			<th>Name</th>
 			<th>Email</th>
 			<th>Mobile</th>
+		</tr>
+		<tr>
+			<td>${userInfoDTO.id }</td>
+			<td>${userInfoDTO.name }</td>
+			<td>${userInfoDTO.email }</td>
+			<td>${userInfoDTO.mobile }</td>	
+			</tr>	
+ 	</table>
+			<h1 style="color: red; text-align: center;">------------------------------------------------------------------------</h1>
+			<h1 style="color: black; text-align: center;">User Parking information</h1>
+	  <table class="table" id="customers">
+		<tr >
+			<th>UserId</th>
 			<th>Location</th>
 			<th>Type</th>
 			<th>Classification</th>
@@ -34,21 +48,19 @@
 			<th>totalAmount</th>
 			<th>Edit</th>
 		</tr>
-			<tr>
-				<td>${userInfoDTO.id }</td>
-				<td>${userInfoDTO.name }</td>
-				<td>${userInfoDTO.email }</td>
-				<td>${userInfoDTO.mobile }</td>
-				
-				<td>${userParkingInfoDTO.location}</td>
-				<td>${userParkingInfoDTO.type}</td>
-				<td>${userParkingInfoDTO.classification}</td>
-				<td>${userParkingInfoDTO.terms}</td>
-				<td>${userParkingInfoDTO.totalAmount}</td>	
-				<td><a  href="UpdateUserInfo.jsp" class="btn btn-info" type="button">Edit</a></td>
- 			</tr>
-		
+		<c:forEach items="${userParkingInfoDTO}" var="pud">
+		<tr>
+			<td>${pud.userId }</td>
+			<td>${pud.location}</td>
+			<td>${pud.type}</td>
+			<td>${pud.classification}</td>
+			<td>${pud.terms}</td>
+			<td>${pud.totalAmount}</td>	
+			<td><a  href="UpdateUserInfo.jsp" class="btn btn-info" type="button">Edit</a></td>
+		</tr>	
+		</c:forEach>		
 	</table>
+	
 </body>
 	<div class="fixed-footer">
 		<footer class="bg-secondary text-white">

@@ -81,27 +81,22 @@
 <header>
 	<div class="fixed-header">
 		<nav class="navbar navbar-dark bg-secondary justify-content-between">
-			<img src="https://w7.pngwing.com/pngs/974/17/png-transparent-car-park-parking-computer-icons-parking-text-rectangle-logo-thumbnail.png" alt="" width="60" height="60"> 
-		    <a href="User.jsp" class="btn btn-info" type="button">Home</a>
-		    <a href="UserOTP.jsp" class="btn btn-info" type="button" style="margin-right: 1100px;">Login</a>
-		</nav>	
-	</div>
+		    <a  href="UserDetails.jsp" class="btn btn-info" type="button">Home</a>
+		    <a style="margin-left: 1000px; color: pink;" class="navbar-brand" >Welcome,${userInfoDTO.name}</a>
+		</nav>
+	</div>		
 </header>
 <body>
 		
 <div class="container">
-	<form action="user" method="post" onsubmit="return validateFields()" style="background-color: white; margin-top: 10px;margin-bottom: 10px; margin-left: 200px; margin-right: 200px; border: 1px solid black; border-radius: 10px;">
+	<form action="addUser" method="post" onsubmit="return validateFields()" style="background-color: white; margin-top: 10px;margin-bottom: 10px; margin-left: 200px; margin-right: 200px; border: 1px solid black; border-radius: 10px;">
 		
-		<span style="margin-left: 70px; color: blue;">${usermsg }</span> 	 
-	 	<span style="color: red;" id="display"></span><a id="here" href="UserLogin.jsp"></a>
-		<h1 style="color: red; text-align: center;" >User Information</h1>
+		<span style="margin-left: 70px; color: blue;">${userparking }</span> 	 
+	 	<span style="margin-left: 70px; color: red;">${already }</span> 	
+		<h1 style="color: red; text-align: center;" >User Parking Information</h1>
 		<div class="container">
-			<label for="name"><b>User Name</b></label>
-			<input type="text" name="name" placeholder="Enter Name" class="form-control" required="required">
 			<label for="email"><b>User Email</b></label>
-			<input type="email" name="email" placeholder="Enter Email" class="form-control" onchange="EmailAjax()" id="email" required="required">
-			<label for="mobile"><b>User Mobile</b></label>
-			<input type="number" name="mobile" placeholder="Enter Mobile" class="form-control" required="required" >
+			<input type="email" name="email" value="${userInfoDTO.email}" class="form-control" id="email" readonly="readonly">
 			<label for="location"><b>Vehicle Location</b></label>
 					<select name="location" class="form-control" id="location">
 					<option value="">Location</option>
@@ -149,12 +144,12 @@
 	</form>
 </div>
 </body>
-<div class="fixed-footer">
-<footer class="bg-secondary text-white">
-    <div class="text-center p-3" style="background-color: secondary;">
-      © 2023 Copyright:
-      <a class="text-white" href="https://irfan.xworkz@gmail.com/">irfan.xworkz@gmail.com</a>
-    </div>
-</footer>
-</div> 
+	<div class="fixed-footer">
+		<footer class="bg-secondary text-white">
+		    <div class="text-center p-3" style="background-color: secondary;">
+		      © 2023 Copyright:
+		      <a class="text-white" href="https://irfan.xworkz@gmail.com/">irfan.xworkz@gmail.com <span style="color: orange;">[LoginTime:${userInfoDTO.loginTime }]</span></a>
+		    </div>
+		 </footer>
+	</div>		 
 </html>

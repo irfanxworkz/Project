@@ -26,24 +26,23 @@ public class AdminParkingController {
 	@Autowired
 	private ParkingServices parkingServices;
 
-	public AdminParkingController() {
-		log.info("Creating no arg Constructor Using ParkingController!!!");
-	}
-
+	/* this method for Admin Login */
 	@PostMapping(value = "/login")
 	private String adminLogin(ParkingDTO dto, Model model, HttpServletRequest req) {
-		log.info("Running findEmail method in ParkingController...");
+		/* log.info("Running findEmail method in ParkingController..."); */
 		ParkingDTO dto1 = this.parkingServices.loginAdmin(dto.getEmail(), dto.getPassword());
 		if (dto1 != null) {
 			HttpSession session = req.getSession(true);
 			session.setAttribute("adminDTOS", dto1);
+			//session.invalidate();
 			return "/AdminDetails.jsp";
 		} else {
-			model.addAttribute("msg", "email or password invalid!!! ");
+			/* model.addAttribute("msg", "email or password invalid!!! "); */
 			return "/Admin.jsp";
 		}
 	}
 	
+	/* this method for add parking info throw admin */
 	@PostMapping(value = "/info")
 	private String addParkingInfo(ParkingInfoDTO parkingInfoDTO , Model model ) {
 		parkingServices.adminSaveAndValidate(parkingInfoDTO);
@@ -52,6 +51,7 @@ public class AdminParkingController {
 
 	}
 	
+	/* this method for find all parking info by location */
 	@GetMapping(value = "/view")
 	public String findByLocation(Model model,String location) {
 		List<ParkingInfoDTO> list = parkingServices.findByLocationAdmin(location);

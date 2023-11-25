@@ -33,7 +33,11 @@ public interface ParkingRepository {
 	
 	boolean sendOtp(String oneTimePassword, String email);
 
-	default UserParkingInfoEntity findByUserId(int userId) {
+	default List<UserParkingInfoEntity> findByUserId(int userId) {
+		return null;
+	}
+
+	default List<UserInfoEntity> userAllDetails(String email){
 		return null;
 	}
 

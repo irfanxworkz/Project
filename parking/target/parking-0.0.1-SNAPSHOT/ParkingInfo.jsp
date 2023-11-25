@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>AdminPanel</title>
+<title>Admin Panel</title>
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css">
 	<link rel="stylesheet" href="Parking.css">
@@ -14,14 +14,15 @@
 	<div class="fixed-header">
 		<nav class="navbar navbar-dark bg-secondary justify-content-between">
 		    <a href="AdminDetails.jsp" class="btn btn-info">Home</a>
-			<a style="margin-left: 1000px; color: pink;"" class="navbar-brand">Welcome,${dtos.name}</a>
+			<a style="margin-left: 1000px; color: pink;"" class="navbar-brand">Welcome,${adminDTOS.name}</a>
 		</nav>
 	</div>		
 </header>
 <body>
 	<div class="container">	
-		 	<span style="margin-left: 200px; color: blue;"> ${msg1 }</span>
+		 	
 		<form action="info" method="post" style="background-color: white;  margin-bottom: 10px; margin-left: 200px; margin-right: 200px; border: 1px solid black; border-radius: 10px;">
+			<span style="margin-left: 70px; color: blue;"> ${msg1 }</span>
 			<br><h1  style="text-align: center; color: red;">Parking Info</h1>
 			<div class="container">
 				<label for="location"><b>Location</b></label>
@@ -70,7 +71,7 @@
 		<footer class="bg-secondary text-white" >
 		    <div class="text-center p-3" style="background-color: secondary;">
 		      © 2023 Copyright:
-		      <a style="color: blue;" href="https://irfan.xworkz@gmail.com/">irfan.xworkz@gmail.com</a>  <span style="color: orange;">[LoginTime: ${dtos.loginTime }]</span>
+		      <a style="color: blue;" href="https://irfan.xworkz@gmail.com/">irfan.xworkz@gmail.com</a>  <span style="color: orange;">[LoginTime: ${adminDTOS.loginTime }]</span>
 		    </div>
 		 </footer>
 	</div>	 

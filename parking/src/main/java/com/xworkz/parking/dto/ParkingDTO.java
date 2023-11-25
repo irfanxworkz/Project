@@ -9,10 +9,6 @@ import lombok.extern.slf4j.Slf4j;
 @Data
 @Slf4j
 public class ParkingDTO implements Serializable, Comparable<ParkingDTO>{
-
-	public ParkingDTO() {
-		log.info("Created no-arg Constructor using ParkingDTO!!!");
-	}
 	
 	private int id;
 	

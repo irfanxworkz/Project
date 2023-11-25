@@ -6,8 +6,9 @@
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
-		<item key="selection" value="ajaxWithObj()"/>
+		<item key="selection" value="List"/>
 		<list key="findhistory">
+			<item value="List"/>
 			<item value="ajaxWithObj()"/>
 			<item value="ajaxWithObj"/>
 		</list>
