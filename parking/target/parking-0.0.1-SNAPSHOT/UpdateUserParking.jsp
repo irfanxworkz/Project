@@ -89,41 +89,39 @@
 </header>
 <body>
 		<div class="container">
-	<form action="userupdate" method="post" onsubmit="return validateFields()" style="background-color: white; margin-top: 10px;margin-bottom: 10px; margin-left: 200px; margin-right: 200px; border: 1px solid black; border-radius: 10px;">
+	<form action="updateInfo" method="post" onsubmit="return validateFields()" style="background-color: white; margin-top: 10px;margin-bottom: 10px; margin-left: 200px; margin-right: 200px; border: 1px solid black; border-radius: 10px;">
 		
-		<span style="color: green;">${updatemsg }</span>
+		<span style="color: green;">${UpdateSuccess }</span>
+		<span style="color: red;"></span>
 		<h1 style="color: red; text-align: center;" >Update User Parking</h1>
 		<div class="container">
-			<label for="name"><b>User Name</b></label>
-			<input type="text" name="name" value="${userInfoDTO.name}" class="form-control" readonly="readonly">
-			<label for="email"><b>User Email</b></label>
-			<input type="email" name="email" value="${userInfoDTO.email}" class="form-control" onchange="EmailAjax()" id="email" readonly="readonly">
-			<label for="mobile"><b>User Mobile</b></label>
-			<input type="number" name="mobile" value="${userInfoDTO.mobile}" class="form-control" readonly="readonly" >
+			<input type="hidden" value="${parkingData.id }" name="id" >
+			<input type="hidden" value="${parkingData.userId }" name="userId" >
+			
 			<label for="location"><b>Vehicle Location</b></label>
 					<select name="location" class="form-control" id="location">
-					<option value="">Location</option>
+					<option value="">${parkingData.location }</option>
 					<option value="Rajaji-Nagar">Rajaji-Nagar</option>
 					<option value="kurubarahalli">Kurubarahalli</option>
 					<option value="btm">BTM</option>
 					</select>
 			<label for="type"><b>Vehicle Type</b></label>
 					<select name="type" class="form-control" id="type">
-					<option value="">type</option>
+					<option value="">${parkingData.type}</option>
 					<option value="2 wheeler">2-Wheeler</option>
 					<option value="4 wheeler">4-wheeler</option>
 					</select>
 			<label for="classification"><b>Vehicle Classification</b></label>	
 					<select name="classification" class="form-control" id="classification">
-					<option value="">classification</option>
+					<option value="">${parkingData.classification}</option>
 					<option value="bmw">BMW</option>
 					<option value="dastun">Dastun</option>
 					<option value="benz">Benz</option>
 					<option value="bike">Bike</option>
 					</select>
-			<label for="terms"><b>Vehicle Terms</b></label>		
+			<label for="terms"><b>Vehicle Terms</b></label>	
 					<select name="terms" class="form-control" onchange="ajaxWithObj()" id="terms">
-					<option value="">terms</option>
+					<option value="">${parkingData.terms}</option>
 					<option value="1-day">1-Day</option>
 					<option value="7-day">7-Days</option>
 					<option value="15-day">15-Days</option>
@@ -133,11 +131,11 @@
 					<option value="365-day">365-Days</option>
 					</select>
 			<label for="price"><b> User Price</b></label>		
-					<input type="text" name="price" class="form-control" placeholder="price" id="price" readonly="readonly">
+					<input type="text" name="price" class="form-control" placeholder="${parkingData.price }" id="price" readonly="readonly">
 			<label for="discount"><b>User Discount</b></label>
-					<input type="text" name="discount" class="form-control" placeholder="discount" id="discount" readonly="readonly">
+					<input type="text" name="discount" class="form-control" placeholder="${parkingData.discount }" id="discount" readonly="readonly">
 			<label for="totalAmount"><b>User Total Amount</b></label>
-					<input type="text" name="totalAmount" class="form-control" placeholder="Total Amount" id="totalAmount" readonly="readonly">
+					<input type="text" name="totalAmount" class="form-control" placeholder="${parkingData.totalAmount }" id="totalAmount" readonly="readonly">
 			<div class="form-group form-check">
 			    <input type="checkbox" class="form-check-input" id="myCheckbox">
 			    <label class="form-check-label" for="myCheckbox">Check for agreement</label>

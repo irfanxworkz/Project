@@ -14,19 +14,19 @@ public class ParkingWebInit extends AbstractAnnotationConfigDispatcherServletIni
 	
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
-		/* log.info("Running getRootConfigClasses method..."); */
+		log.info("Running getRootConfigClasses method...");
 		return null;
 	}
 
 	@Override
 	protected Class<?>[] getServletConfigClasses() {
-		/* log.info("Running getServletConfigClasses method..."); */
+		log.info("Running getServletConfigClasses method...");
 		return new Class[] {ParkingConfigration.class};
 	}
 
 	@Override
 	protected String[] getServletMappings() {
-		/* log.info("Running getServletMappings method..."); */
+		log.info("Running getServletMappings method...");
 		return new String[] {"/"};
 	}
 }

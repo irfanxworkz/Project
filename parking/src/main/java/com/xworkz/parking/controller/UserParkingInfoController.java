@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.xworkz.parking.dto.UserInfoDTO;
 import com.xworkz.parking.dto.UserParkingInfoDTO;
@@ -25,23 +26,22 @@ public class UserParkingInfoController {
 	@Autowired
 	private ParkingServices parkingServices;
 
-	/* this method for user registration */
+	//this method for user registration */
 	@PostMapping(value = "/userReg")
 	public String userRegistration(UserInfoDTO userInfoDTO, Model model) {
 		boolean status = this.parkingServices.userRegistration(userInfoDTO);
 		if (status) {
 			model.addAttribute("UserRegMsg", "User Successfully Register");
-
 		} else {
 			model.addAttribute("error", "Email-id is already exist");
 		}
 		return "/UserReg.jsp";
 	}
 
-	/* this method for sent otp on user mail id */
+	//this method for sent otp on user mail id */
 	@PostMapping(value = "/userotp")
 	public String sendOTP(String email, Model model, HttpServletRequest req) {
-		/* log.info("Running send otp method.."); */
+		log.info("Running send otp method..");
 		UserInfoDTO userInfoDTO2 = this.parkingServices.sendOTP(email);
 		if (userInfoDTO2 != null) {
 			HttpSession session = req.getSession(true);
@@ -54,10 +54,10 @@ public class UserParkingInfoController {
 		}
 	}
 
-	/* this method for user login */
+	//this method for user login
 	@PostMapping(value = "/userlogin")
 	public String userLogin(String email, String oneTimePassword, Model model, HttpServletRequest req) {
-		/* log.info("Running userLogin() method in UserParkingInfoController..."); */
+		log.info("Running userLogin() method in UserParkingInfoController...");
 		UserInfoDTO userInfoDTO2 = this.parkingServices.loginUser(email, oneTimePassword);
 		if (userInfoDTO2 != null) {
 			HttpSession session = req.getSession(true);
@@ -69,25 +69,23 @@ public class UserParkingInfoController {
 		}
 	}
 	
-	/* this method for add user parking information */
+	//this method for add user parking information */
 	@PostMapping(value = "/addUser")
 	public String addUserParkingInfo(String email, UserParkingInfoDTO userParkingInfoDTO, Model model) {
 		boolean status = this.parkingServices.saveUserParkingInfo(email, userParkingInfoDTO);
 		if (status) {
 			model.addAttribute("userparking", userParkingInfoDTO.getClassification() +" Parked in "+userParkingInfoDTO.getLocation() +" Successfully... ");
 		} else {
-			
 			model.addAttribute("already", "data is already exist");
 		}
 		return "/UserInfo.jsp";
 	}
 
-	/* this method for View user parking information */
+	//this method for View user parking information */
 	@PostMapping(value = "/userParkingView")
 	public String viewUserParkingInfo(String viewParkingInfo, Model model, HttpServletRequest req) {
-			List<UserInfoDTO> userInfoDTO2 = this.parkingServices.viewUserData(viewParkingInfo);
-		
-			List<UserParkingInfoDTO>  userParkingInfoDTO =this.parkingServices.findByUserId(userInfoDTO2.get(0).getId());
+			UserInfoDTO userInfoDTO2 = this.parkingServices.viewUserData(viewParkingInfo);
+			List<UserParkingInfoDTO>  userParkingInfoDTO =this.parkingServices.findByUserId(userInfoDTO2.getId());
 			System.err.println("Faching from findByuserId userParkingInfoDTO : "+userParkingInfoDTO);
 			if (userInfoDTO2 != null) {
 				HttpSession session = req.getSession(true);
@@ -97,14 +95,32 @@ public class UserParkingInfoController {
 			return null; 
 	}
 	
-	/* this method for update user information */
-	@PostMapping(value = "/userupdate")
-	public String userUpdateInfo(UserInfoDTO userInfoDTO, UserParkingInfoDTO userParkingInfoDTO, Model model) {
-		/* log.info("running userUpdateInfo method in UserParkingInfoController..."); */
-		boolean status = this.parkingServices.userupdate(userInfoDTO, userParkingInfoDTO);
-		if (status) {
-			model.addAttribute("updatemsg", "infomaton for " + userInfoDTO.getName() + " save successfully");
+	//this method for update user information */
+	@PostMapping(value = "/editUserParking")
+	public String findById(int id,Model model,HttpServletRequest req) {
+		log.info("Running updateUserParkingInfo method in USerPArkingInfoController....");
+		UserParkingInfoDTO userParkingInfoDTO= this.parkingServices.findById(id);
+		if(userParkingInfoDTO != null) {
+			HttpSession session=req.getSession(true);
+			session.setAttribute("parkingData", userParkingInfoDTO);
+			return "/UpdateUserParking.jsp";
 		}
-		return "/UserInfo.jsp";
+			return null;
+		}
+	
+	//this method for update user parking information 
+	@PostMapping("/updateInfo")
+	public String updateUserParkingInfo(int id,String location, String type,String classification,String terms,
+			double price,String discount, double totalAmount, Model model) {
+		boolean status = this.parkingServices.updateUserParkingInfo(id, location, type, classification, terms, price, discount, totalAmount);
+		if(status) {
+			model.addAttribute("UpdateSuccess", " user parking information for update Successfully... ");
+			return "/UpdateUserParking.jsp";
+		}else {
+			model.addAttribute("error","something went wrong....");
+			return "/UpdateUserParking.jsp";
+	       }
+	    }
+	
+	
 	}
-}

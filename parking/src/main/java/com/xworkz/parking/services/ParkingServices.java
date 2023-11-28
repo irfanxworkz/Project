@@ -6,8 +6,6 @@ import com.xworkz.parking.dto.ParkingDTO;
 import com.xworkz.parking.dto.ParkingInfoDTO;
 import com.xworkz.parking.dto.UserInfoDTO;
 import com.xworkz.parking.dto.UserParkingInfoDTO;
-import com.xworkz.parking.entity.UserInfoEntity;
-import com.xworkz.parking.entity.UserParkingInfoEntity;
 
 public interface ParkingServices {
 	
@@ -36,7 +34,7 @@ public interface ParkingServices {
 		return false;
 	}
 	
-	default List<UserInfoDTO> viewUserData(String email) {
+	default UserInfoDTO viewUserData(String email) {
 		return null;
 	}
 	
@@ -53,13 +51,16 @@ public interface ParkingServices {
 		
 	  }
 
-	default boolean userupdate(UserInfoDTO userInfoDTO, UserParkingInfoDTO userParkingInfoDTO) {
+	default UserParkingInfoDTO findById(int id) {
+		return null;
+	}
+	
+	default boolean updateUserParkingInfo(int id,UserParkingInfoDTO userParkingInfoDTO) {
 		return false;
 	}
 
-	
+	boolean updateUserParkingInfo(int id, String location, String type, String classification, String terms,
+			double price, String discount, double totalAmount);
 
-
-	  
 
 }

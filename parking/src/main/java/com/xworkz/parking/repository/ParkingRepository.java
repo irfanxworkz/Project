@@ -1,13 +1,12 @@
 package com.xworkz.parking.repository;
 
 import java.util.List;
-
 import com.xworkz.parking.entity.ParkingEntity;
 import com.xworkz.parking.entity.ParkingInfoEntity;
 import com.xworkz.parking.entity.UserInfoEntity;
 import com.xworkz.parking.entity.UserParkingInfoEntity;
 
-public interface ParkingRepository {
+public interface ParkingRepository{
 	
 	default ParkingEntity loginAdmin(String email) {
 		return null;
@@ -37,8 +36,15 @@ public interface ParkingRepository {
 		return null;
 	}
 
-	default List<UserInfoEntity> userAllDetails(String email){
+	default UserInfoEntity userAllDetails(String email){
 		return null;
 	}
+
+	default UserParkingInfoEntity findById(int id) {
+		return null;
+	}
+
+	UserParkingInfoEntity updateUserParkingInfo(int id, String location, String type, String classification, String terms, double price,
+			String discount, double totalAmount);
 
 }

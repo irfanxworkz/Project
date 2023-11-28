@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configuration debug="true">
+<configuration debug="false">
 	<appender name="STDOUT"
 		class="ch.qos.logback.core.ConsoleAppender">
 		<layout class="ch.qos.logback.classic.PatternLayout">
@@ -16,7 +16,7 @@
 				%msg%n</pattern>
 		</encoder>
 	</appender>
-	<logger name="com.xworkz" level="debug" additivity="false">
+	<logger name="com.xworkz" level="info" additivity="false">
 		<appender-ref ref="STDOUT" />
 	</logger>
 	<root >

@@ -91,16 +91,13 @@
 <div class="container">
 	<form action="addUser" method="post" onsubmit="return validateFields()" style="background-color: white; margin-top: 10px;margin-bottom: 10px; margin-left: 200px; margin-right: 200px; border: 1px solid black; border-radius: 10px;">
 		
-		<span style="margin-left: 70px; color: blue;">${usermsg }</span> 	 
-	 	<span style="color: red;" id="display"></span><a id="here" href="UserLogin.jsp"></a>
+		<span style="margin-left: 70px; color: blue;">${userparking }</span> 	 
+	 	<span style="margin-left: 70px; color: red;">${already }</span> 	
 		<h1 style="color: red; text-align: center;" >User Parking Information</h1>
 		<div class="container">
-			<label for="name"><b>User Name</b></label>
-			<input type="text" name="name" value="${userInfoDTO.name}" class="form-control" readonly="readonly">
 			<label for="email"><b>User Email</b></label>
-			<input type="email" name="email" value="${userInfoDTO.email}" class="form-control" onchange="EmailAjax()" id="email" readonly="readonly">
-			<label for="mobile"><b>User Mobile</b></label>
-			<input type="number" name="mobile" value="${userInfoDTO.mobile}" class="form-control" readonly="readonly" >
+			<input type="email" name="email" value="${userInfoDTO.email}" class="form-control" id="email" readonly="readonly">
+			
 			<label for="location"><b>Vehicle Location</b></label>
 					<select name="location" class="form-control" id="location">
 					<option value="">Location</option>

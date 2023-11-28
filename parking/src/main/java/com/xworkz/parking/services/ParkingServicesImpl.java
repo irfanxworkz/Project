@@ -6,6 +6,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,10 +35,10 @@ public class ParkingServicesImpl implements ParkingServices {
 	@Autowired
 	private UserParkingEmail userParkingEmail;
 
-	/* this method for Admin login */
+	//this method for Admin login
 	@Override
 	public ParkingDTO loginAdmin(String email, String password) {
-		/* log.info("Running loginAdmin method in ParkingServicesImpl... "); */
+		 log.info("Running loginAdmin method in ParkingServicesImpl... "); 
 		ParkingEntity entiy = this.repo.loginAdmin(email);
 		if (entiy != null) {
 			if (entiy.getEmail().equals(email) && entiy.getPassword().equals(password)) {
@@ -46,16 +48,16 @@ public class ParkingServicesImpl implements ParkingServices {
 				BeanUtils.copyProperties(entiy, dto);
 				return dto;
 			} else {
-				/* log.info("not a valid credential"); */
+				 log.info("not a valid credential");
 				return null;
 			}
 		} else {
-			/* log.info("no data found"); */
+			log.info("no data found");
 			return null;
 		}
 	}
 	
-	/* this method for add parking info throw admin */
+	//this method for add parking info throw admin
 	@Override
 	public boolean adminSaveAndValidate(ParkingInfoDTO parkingInfoDTO) {
 		ParkingInfoEntity parkingInfoEntity = new ParkingInfoEntity();
@@ -64,7 +66,7 @@ public class ParkingServicesImpl implements ParkingServices {
 		return this.repo.saveAdmin(parkingInfoEntity);
 	}
 
-	/* this method for find all parking info by location */
+	//this method for find all parking info by location
 	@Override
 	public List<ParkingInfoDTO> findByLocationAdmin(String location) {
 		List<ParkingInfoEntity> entities = this.repo.findByLocationAdmin(location);
@@ -76,7 +78,7 @@ public class ParkingServicesImpl implements ParkingServices {
 		return dtos;
 	}
 	
-	/* this method for UserAjexController */
+	//this method for UserAjexController
 	@Override
 	public ParkingInfoDTO findByLocationTypeClassificationTerm(String location, String type, String classification,
 			String term) {
@@ -92,74 +94,74 @@ public class ParkingServicesImpl implements ParkingServices {
 		return null;
 	}
 	
-	/* this method for User Registration */
+	//this method for User Registration
 	@Override
 	public boolean userRegistration(UserInfoDTO userInfoDTO) {
-		/* log.info("running userRegistration() in ParkingSrervicesImpl..."); */
+		log.info("running userRegistration() in ParkingSrervicesImpl...");
 		UserInfoEntity record = this.repo.findByUserEmail(userInfoDTO.getEmail());
 		if(record == null) {
 			UserInfoEntity userInfoEntity = new UserInfoEntity();
 			BeanUtils.copyProperties(userInfoDTO, userInfoEntity);
 			boolean saveUserInfo = repo.saveUserInfo(userInfoEntity);
-			/* log.info("UserInfoEntity: " + saveUserInfo); */
+			log.info("UserInfoEntity: " + saveUserInfo);
 			return true;
 		}
 		else {
-			/* log.info("record is not null"); */
+			log.info("record is not null");
 			return false;
 		}
 		
 	}
 	
-	/* this method for UserAjexController */
+	//this method for UserAjexController
 	@Override
 	public boolean findByUserEmail(String email) {
-		/* log.info("running findByUserEmail() in ParkingServicesImpl..."); */
+		log.info("running findByUserEmail() in ParkingServicesImpl...");
 		UserInfoEntity userInfoEntity = repo.findByUserEmail(email);
 		if (userInfoEntity != null) {
 			return true;
+		}else {
+			log.info("data not found");
+			return false;
 		}
-		return false;
+		
 	}
 
-	/* this method for finding email in userInfo */
+	//this method for finding email in userInfo
 	@Override
-	public List<UserInfoDTO> viewUserData(String email) {
-		/* log.info("running viewUserData() in ParkingServicesImpl..."); */
-		List<UserInfoEntity> userInfoEntity = repo.userAllDetails(email);
+	public UserInfoDTO viewUserData(String email) {
+		log.info("running viewUserData() in ParkingServicesImpl...");
+		UserInfoEntity userInfoEntity = repo.userAllDetails(email);
 		if (userInfoEntity != null) {
-		List<UserInfoDTO> userInfoDTO = userInfoEntity.stream().map(uent -> {
-			UserInfoDTO userInfoDTO1=new UserInfoDTO();
-			BeanUtils.copyProperties(uent, userInfoDTO1);
-			return userInfoDTO1;
-		}).collect(Collectors.toList());
-		return userInfoDTO;
-	}
+			UserInfoDTO userInfoDTO = new UserInfoDTO();
+			BeanUtils.copyProperties(userInfoEntity, userInfoDTO);
+			return userInfoDTO;
+		}
 		return null;
 	}
 	
-	/* this method for send otp User email */
+	//this method for send otp User email
 	@Override
 	public UserInfoDTO sendOTP(String email) {
-		/* log.info("Running sendOTP() Method in parkingServicesImpl..."); */
+		log.info("Running sendOTP() Method in parkingServicesImpl...");
 		UserInfoEntity userInfoEntity = repo.findByUserEmail(email);
 		if(userInfoEntity != null) {
-				boolean status=userParkingEmail.otpSendMail(email, userInfoEntity);
-				boolean status1=this.repo.sendOtp(userInfoEntity.getOneTimePassword(), email);
-				System.err.println("OTP=============================="+userInfoEntity.getOneTimePassword());
+			boolean status=userParkingEmail.otpSendMail(email, userInfoEntity);
+			boolean status1=this.repo.sendOtp(userInfoEntity.getOneTimePassword(), email);
+			System.err.println("OTP=============================="+userInfoEntity.getOneTimePassword());
 			UserInfoDTO dto=new UserInfoDTO();
 			BeanUtils.copyProperties(userInfoEntity, dto);
 			return dto;
-			} else {
-				/* log.info("email id is not exist"); */
+		} else {
+				log.info("email id is not exist");
+				return null;
 			}
-			return null;
 	}
 	
-	/* this method for user login */
+	//this method for user login
 	@Override
 	public UserInfoDTO loginUser(String email,String oneTimePassword) {
-		/* log.info("Running loginUser() method in ParkingServicesImpl... "); */
+		log.info("Running loginUser() method in ParkingServicesImpl... ");
 		UserInfoEntity userInfoEntity = this.repo.findByUserEmail(email);
 		if (userInfoEntity != null) {
 			if (userInfoEntity.getEmail().equals(email) && userInfoEntity.getOneTimePassword().equals(oneTimePassword)) {
@@ -169,36 +171,34 @@ public class ParkingServicesImpl implements ParkingServices {
 				BeanUtils.copyProperties(userInfoEntity, userInfoDTO);
 				return userInfoDTO;
 			} else {
-				/* log.info("not a valid credential"); */
+				 log.info("not a valid credential");
 				return null;
 			}
 		} else {
-			/* log.info("no data found"); */
+			 log.info("no data found");
 			return null;
-		}
+			}
 	}
 	
-	/* this method for add User Parking info */
+	//this method for add User Parking info
 	@Override
 	public boolean saveUserParkingInfo(String email, UserParkingInfoDTO userParkingInfoDTO) {
-		/* log.info("running userSaveAndValidate() in ParkingSrervicesImpl..."); */
+		log.info("running userSaveAndValidate() in ParkingSrervicesImpl...");
 		UserInfoEntity userByEmail = this.repo.findByUserEmail(email);
 		if(userByEmail != null) {
 			UserParkingInfoEntity userParkingInfoEntity = new UserParkingInfoEntity();
-			/* UserInfoEntity userByEmail =repo.findByUserEmail(userInfoDTO.getEmail()); */
 			userParkingInfoDTO.setUserId(userByEmail.getId());
 			BeanUtils.copyProperties(userParkingInfoDTO, userParkingInfoEntity);
 			boolean saveUserParkingInfo = repo.saveUserParkingInfo(userParkingInfoEntity);
-			/* log.info("UserParkingInfoEntity: " + saveUserParkingInfo); */
+			log.info("UserParkingInfoEntity: " + saveUserParkingInfo);
 			return true;
-		}
-		else {
-			/* log.info("record is not null"); */
+		}else {
+			log.info("record is not null");
 			return false;
 		}
 	}
 	
-	/* this method for finding UserId in UserParkingInfo */
+	//this method for finding UserId in UserParkingInfo
 	@Override
 	public List<UserParkingInfoDTO> findByUserId(int userId) {
 		List<UserParkingInfoEntity>  userParkingInfoEntities = this.repo.findByUserId(userId);
@@ -209,32 +209,46 @@ public class ParkingServicesImpl implements ParkingServices {
 		}).collect(Collectors.toList());
 		System.err.println("userParkingInfoDTO is : "+userParkingInfoDTOs);
 		return userParkingInfoDTOs;	
-	}
+		}
+	
 	
 	/* this method for update user parking details */
 	@Override
-	public boolean userupdate(UserInfoDTO userInfoDTO, UserParkingInfoDTO userParkingInfoDTO) {
+	public UserParkingInfoDTO findById(int id) {
 		log.info("running userupdate() in ParkingSrervicesImpl...");
-		UserInfoEntity record = this.repo.findByUserEmail(userInfoDTO.getEmail());
-		if(record != null) {
-			UserInfoEntity userInfoEntity = new UserInfoEntity();
-			BeanUtils.copyProperties(userInfoDTO, userInfoEntity);
-			boolean saveUserInfo = repo.saveUserInfo(userInfoEntity);
-			log.info("UserInfoEntity: " + saveUserInfo);
-			
-			UserParkingInfoEntity userParkingInfoEntity = new UserParkingInfoEntity();
-			UserInfoEntity userByEmail =repo.findByUserEmail(userInfoDTO.getEmail());
-			System.out.println("=============================================================================");
-			BeanUtils.copyProperties(userParkingInfoDTO, userParkingInfoEntity);
-			boolean saveUserParkingInfo = repo.saveUserParkingInfo(userParkingInfoEntity);
-			log.info("UserParkingInfoEntity: " + saveUserParkingInfo);
-			
-			return true;
+		UserParkingInfoEntity userparking= this.repo.findById(id);
+		if (userparking !=null) {
+			UserParkingInfoDTO dto = new UserParkingInfoDTO();
+			BeanUtils.copyProperties(userparking, dto);	
+			return dto;
+		} else {
+			 log.info("no data found");
+			 return null;
 		}
-		else {
-			log.info("record is not null");
+	}
+		
+	
+	@Override
+	public boolean updateUserParkingInfo(int id, String location, String type, String classification,String terms, double price,
+			String discount, double totalAmount) {
+		UserParkingInfoEntity UserParkingInfoEntity =this.repo.findById(id);
+		if(UserParkingInfoEntity != null) {
+			UserParkingInfoEntity UserParkingInfoEntity1= this.repo.updateUserParkingInfo(id,location,type,classification,terms,price,discount,totalAmount);
+			if(UserParkingInfoEntity1 != null) {
+				UserParkingInfoDTO userParkingInfoDTO=new UserParkingInfoDTO();
+				BeanUtils.copyProperties(userParkingInfoDTO, UserParkingInfoEntity1);
+				System.err.println("userParkingInfoDTO :"+userParkingInfoDTO);
+				log.info("update user parking data : "+UserParkingInfoEntity1);
+			 	return true;
+			}else {
+				log.info("not update user parking data....");	
+				return false;
+			}
+			}else {
+			log.info("not update user parking info....");
 			return false;
 		}
 		
 	}
+	
 }

@@ -96,22 +96,23 @@
 		<h1 style="color: red; text-align: center;" >User Parking Information</h1>
 		<div class="container">
 			<label for="email"><b>User Email</b></label>
-			<input type="email" name="email" value="${userInfoDTO.email}" class="form-control" id="email" readonly="readonly">
+			<input type="hidden" name="email" value="${userInfoDTO.email}" class="form-control" id="email" readonly="readonly">
+			
 			<label for="location"><b>Vehicle Location</b></label>
-					<select name="location" class="form-control" id="location">
+					<select name="location" class="form-control" id="location" required="required">
 					<option value="">Location</option>
 					<option value="Rajaji-Nagar">Rajaji-Nagar</option>
 					<option value="kurubarahalli">Kurubarahalli</option>
 					<option value="btm">BTM</option>
 					</select>
 			<label for="type"><b>Vehicle Type</b></label>
-					<select name="type" class="form-control" id="type">
+					<select name="type" class="form-control" id="type" required="required">
 					<option value="">type</option>
 					<option value="2 wheeler">2-Wheeler</option>
 					<option value="4 wheeler">4-wheeler</option>
 					</select>
 			<label for="classification"><b>Vehicle Classification</b></label>	
-					<select name="classification" class="form-control" id="classification">
+					<select name="classification" class="form-control" id="classification" required="required">
 					<option value="">classification</option>
 					<option value="bmw">BMW</option>
 					<option value="dastun">Dastun</option>
@@ -119,7 +120,7 @@
 					<option value="bike">Bike</option>
 					</select>
 			<label for="terms"><b>Vehicle Terms</b></label>		
-					<select name="terms" class="form-control" onchange="ajaxWithObj()" id="terms">
+					<select name="terms" class="form-control" onchange="ajaxWithObj()" id="terms" required="required">
 					<option value="">terms</option>
 					<option value="1-day">1-Day</option>
 					<option value="7-day">7-Days</option>
@@ -139,7 +140,7 @@
 			    <input type="checkbox" class="form-check-input" id="myCheckbox">
 			    <label class="form-check-label" for="myCheckbox">Check for agreement</label>
 		 	</div>
-	 			 <input type="submit" value="Submit" class="btn btn-info" id="myButton" disabled><br><br>
+	 			 <input type="submit" value="Submit" class="btn btn-info" id="myButton" disabled="disabled"><br><br>
 		</div>
 	</form>
 </div>

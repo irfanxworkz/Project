@@ -56,7 +56,10 @@
 			<td>${pud.classification}</td>
 			<td>${pud.terms}</td>
 			<td>${pud.totalAmount}</td>	
-			<td><a  href="UpdateUserInfo.jsp" class="btn btn-info" type="button">Edit</a></td>
+			<td><form action="editUserParking" method="post">
+			<button value="${pud.id}" name="id" class="btn btn-info" type="submit">Edit</button>
+			</form>
+			</td>
 		</tr>	
 		</c:forEach>		
 	</table>

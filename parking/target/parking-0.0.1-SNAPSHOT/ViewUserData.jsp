@@ -20,13 +20,26 @@
 	</div>		
 </header>
 <body>
-				<h1 style="color: green; text-align: center;">User information</h1>
-	  <table class="table" id="customers">
+
+		<h1 style="color: black; text-align: center;">User Information</h1>
+	<table class="table" id="customers">
 		<tr >
 			<th>Id</th>
 			<th>Name</th>
 			<th>Email</th>
-			<th>Mobile</th>	
+			<th>Mobile</th>
+		</tr>
+		<tr>
+			<td>${userInfoDTO.id }</td>
+			<td>${userInfoDTO.name }</td>
+			<td>${userInfoDTO.email }</td>
+			<td>${userInfoDTO.mobile }</td>	
+			</tr>	
+ 	</table>
+			<h1 style="color: red; text-align: center;">------------------------------------------------------------------------</h1>
+			<h1 style="color: black; text-align: center;">User Parking information</h1>
+	  <table class="table" id="customers">
+		<tr >
 			<th>UserId</th>
 			<th>Location</th>
 			<th>Type</th>
@@ -35,22 +48,22 @@
 			<th>totalAmount</th>
 			<th>Edit</th>
 		</tr>
-			<tr>
-				<td>${userInfoDTO.id }</td>
-				<td>${userInfoDTO.name }</td>
-				<td>${userInfoDTO.email }</td>
-				<td>${userInfoDTO.mobile }</td>
-			<c:forEach items="${userParkingInfoDTO}" var="pud">
-				<td>${pud.userId }</td>
-				<td>${pud.location}</td>
-				<td>${pud.type}</td>
-				<td>${pud.classification}</td>
-				<td>${pud.terms}</td>
-				<td>${pud.totalAmount}</td>	
-				<td><a  href="UpdateUserInfo.jsp" class="btn btn-info" type="button">Edit</a></td>
-			</c:forEach>	
- 			</tr>
+		<c:forEach items="${userParkingInfoDTO}" var="pud">
+		<tr>
+			<td>${pud.userId }</td>
+			<td>${pud.location}</td>
+			<td>${pud.type}</td>
+			<td>${pud.classification}</td>
+			<td>${pud.terms}</td>
+			<td>${pud.totalAmount}</td>	
+			<td><form action="editUserParking" method="post">
+			<button value="${pud.id}" name="id" class="btn btn-info" type="submit">Edit</button>
+			</form>
+			</td>
+		</tr>	
+		</c:forEach>		
 	</table>
+	
 </body>
 	<div class="fixed-footer">
 		<footer class="bg-secondary text-white">
