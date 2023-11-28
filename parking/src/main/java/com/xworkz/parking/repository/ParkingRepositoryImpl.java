@@ -195,9 +195,7 @@ public class ParkingRepositoryImpl implements ParkingRepository {
 			e.printStackTrace();
 		}
 		return null;
-
 	}
-
 	
 	//this method for updateUserParking
 	@Override
@@ -214,12 +212,19 @@ public class ParkingRepositoryImpl implements ParkingRepository {
 			query.setParameter("newDiscount", discount);
 			query.setParameter("newTotalAmount", totalAmount);
 			query.setParameter("id", id);
-			query.executeUpdate();
+			int rowsUpdated= query.executeUpdate();
 			entityManager.getTransaction().commit();
 			//entityManager.close();
 			try {
-				Object entity = query.getSingleResult();
-				return (UserParkingInfoEntity) entity;
+				if (rowsUpdated > 0) {
+			        // If rows were updated, return the corresponding UserParkingInfoEntity
+					log.info("parking information is updated");	       
+					return entityManager.find(UserParkingInfoEntity.class, id);
+			    } else {
+			        // If no rows were updated, return null or throw an exception based on your requirement
+			    	log.info("no rows updated ");
+			    	return null;
+			    }
 			} catch (Exception e) {
 				e.printStackTrace();	
 				}

@@ -21,7 +21,6 @@ public interface ParkingServices {
 	
 	default boolean userRegistration(UserInfoDTO userInfoDTO) {
 		return false;
-		
 	}
 	
 	boolean saveUserParkingInfo(String email, UserParkingInfoDTO userParkingInfoDTO);

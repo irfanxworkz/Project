@@ -229,26 +229,27 @@ public class ParkingServicesImpl implements ParkingServices {
 		
 	
 	@Override
-	public boolean updateUserParkingInfo(int id, String location, String type, String classification,String terms, double price,
-			String discount, double totalAmount) {
-		UserParkingInfoEntity UserParkingInfoEntity =this.repo.findById(id);
-		if(UserParkingInfoEntity != null) {
-			UserParkingInfoEntity UserParkingInfoEntity1= this.repo.updateUserParkingInfo(id,location,type,classification,terms,price,discount,totalAmount);
-			if(UserParkingInfoEntity1 != null) {
-				UserParkingInfoDTO userParkingInfoDTO=new UserParkingInfoDTO();
-				BeanUtils.copyProperties(userParkingInfoDTO, UserParkingInfoEntity1);
-				System.err.println("userParkingInfoDTO :"+userParkingInfoDTO);
-				log.info("update user parking data : "+UserParkingInfoEntity1);
-			 	return true;
-			}else {
-				log.info("not update user parking data....");	
-				return false;
-			}
-			}else {
-			log.info("not update user parking info....");
-			return false;
-		}
-		
+	public boolean updateUserParkingInfo(int id, String location, String type, String classification, String terms,
+	        double price, String discount, double totalAmount) {
+	    try {
+	        UserParkingInfoEntity userParkingInfoEntity = this.repo.updateUserParkingInfo(id, location, type, classification, terms, price, discount, totalAmount);
+	        System.err.println("UserParkingInfoEntity1 in services calling update method: " + userParkingInfoEntity);
+	        if (userParkingInfoEntity != null) {
+	            UserParkingInfoDTO userParkingInfoDTO = new UserParkingInfoDTO();
+	            System.out.println("userParkingInfoDTO before copy value : " + userParkingInfoDTO);
+	            BeanUtils.copyProperties(userParkingInfoEntity, userParkingInfoDTO);
+	            System.err.println("userParkingInfoDTO after copy property : userParkingInfoDTO" + userParkingInfoDTO);
+	            System.err.println("UserParkingInfoEntity1 after copy property : " + userParkingInfoEntity);
+	            log.info("update user parking data : " + userParkingInfoEntity);
+	            return true;
+	        } else {
+	            log.info("not update user parking data....");
+	            return false;
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return false;
 	}
 	
 }

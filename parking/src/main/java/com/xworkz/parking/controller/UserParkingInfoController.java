@@ -113,6 +113,7 @@ public class UserParkingInfoController {
 	public String updateUserParkingInfo(int id,String location, String type,String classification,String terms,
 			double price,String discount, double totalAmount, Model model) {
 		boolean status = this.parkingServices.updateUserParkingInfo(id, location, type, classification, terms, price, discount, totalAmount);
+		System.err.println("Value of status in controller : "+status);
 		if(status) {
 			model.addAttribute("UpdateSuccess", " user parking information for update Successfully... ");
 			return "/UpdateUserParking.jsp";
