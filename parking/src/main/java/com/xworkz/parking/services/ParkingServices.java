@@ -58,7 +58,7 @@ public interface ParkingServices {
 		return false;
 	}
 
-	boolean updateUserParkingInfo(int id, String location, String type, String classification, String terms,
+	UserParkingInfoDTO updateUserParkingInfo(int id, String location, String type, String classification, String terms,
 			double price, String discount, double totalAmount);
 
 

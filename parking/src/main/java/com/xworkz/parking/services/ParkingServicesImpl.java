@@ -229,7 +229,7 @@ public class ParkingServicesImpl implements ParkingServices {
 		
 	
 	@Override
-	public boolean updateUserParkingInfo(int id, String location, String type, String classification, String terms,
+	public UserParkingInfoDTO updateUserParkingInfo(int id, String location, String type, String classification, String terms,
 	        double price, String discount, double totalAmount) {
 	    try {
 	        UserParkingInfoEntity userParkingInfoEntity = this.repo.updateUserParkingInfo(id, location, type, classification, terms, price, discount, totalAmount);
@@ -241,15 +241,15 @@ public class ParkingServicesImpl implements ParkingServices {
 	            System.err.println("userParkingInfoDTO after copy property : userParkingInfoDTO" + userParkingInfoDTO);
 	            System.err.println("UserParkingInfoEntity1 after copy property : " + userParkingInfoEntity);
 	            log.info("update user parking data : " + userParkingInfoEntity);
-	            return true;
+	            return userParkingInfoDTO;
 	        } else {
 	            log.info("not update user parking data....");
-	            return false;
+	            return null;
 	        }
 	    } catch (Exception e) {
 	        e.printStackTrace();
 	    }
-	    return false;
+	    return null;
 	}
 	
 }

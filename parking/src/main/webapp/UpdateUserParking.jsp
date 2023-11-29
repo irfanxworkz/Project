@@ -90,8 +90,6 @@
 <body>
 		<div class="container">
 	<form action="updateInfo" method="post" onsubmit="return validateFields()" style="background-color: white; margin-top: 10px;margin-bottom: 10px; margin-left: 200px; margin-right: 200px; border: 1px solid black; border-radius: 10px;">
-		
-		<span style="color: green;">${UpdateSuccess}</span>
 		<span style="color: red;">${error }</span>
 		<h1 style="color: red; text-align: center;" >Update User Parking</h1>
 		<div class="container">

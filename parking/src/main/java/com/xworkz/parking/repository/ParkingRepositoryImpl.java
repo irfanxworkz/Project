@@ -214,7 +214,6 @@ public class ParkingRepositoryImpl implements ParkingRepository {
 			query.setParameter("id", id);
 			int rowsUpdated= query.executeUpdate();
 			entityManager.getTransaction().commit();
-			//entityManager.close();
 			try {
 				if (rowsUpdated > 0) {
 			        // If rows were updated, return the corresponding UserParkingInfoEntity

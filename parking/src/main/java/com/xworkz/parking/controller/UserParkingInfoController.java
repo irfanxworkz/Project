@@ -111,12 +111,14 @@ public class UserParkingInfoController {
 	//this method for update user parking information 
 	@PostMapping("/updateInfo")
 	public String updateUserParkingInfo(int id,String location, String type,String classification,String terms,
-			double price,String discount, double totalAmount, Model model) {
-		boolean status = this.parkingServices.updateUserParkingInfo(id, location, type, classification, terms, price, discount, totalAmount);
-		System.err.println("Value of status in controller : "+status);
-		if(status) {
-			model.addAttribute("UpdateSuccess", " user parking information for update Successfully... ");
-			return "/UpdateUserParking.jsp";
+			double price,String discount, double totalAmount, Model model,HttpServletRequest req) {
+		UserParkingInfoDTO userParkingInfoDTO= this.parkingServices.updateUserParkingInfo(id, location, type, classification, terms, price, discount, totalAmount);
+		System.err.println("Value of userParkingInfoDTO in controller : "+userParkingInfoDTO);
+		if(userParkingInfoDTO != null) {
+			HttpSession session=req.getSession(true);
+			session.setAttribute("successUpdate", userParkingInfoDTO);
+			model.addAttribute("UpdateMsg", " user parking information updated Successfully... ");
+			return "/UpdateUserSuccess.jsp";
 		}else {
 			model.addAttribute("error","something went wrong....");
 			return "/UpdateUserParking.jsp";
