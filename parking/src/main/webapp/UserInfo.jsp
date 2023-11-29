@@ -95,9 +95,7 @@
 	 	<span style="margin-left: 70px; color: red;">${already }</span> 	
 		<h1 style="color: red; text-align: center;" >User Parking Information</h1>
 		<div class="container">
-			<label for="email"><b>User Email</b></label>
 			<input type="hidden" name="email" value="${userInfoDTO.email}" class="form-control" id="email" readonly="readonly">
-			
 			<label for="location"><b>Vehicle Location</b></label>
 					<select name="location" class="form-control" id="location" required="required">
 					<option value="">Location</option>
