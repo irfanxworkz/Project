@@ -6,6 +6,7 @@ import com.xworkz.parking.dto.ParkingDTO;
 import com.xworkz.parking.dto.ParkingInfoDTO;
 import com.xworkz.parking.dto.UserInfoDTO;
 import com.xworkz.parking.dto.UserParkingInfoDTO;
+import com.xworkz.parking.entity.UserInfoEntity;
 
 public interface ParkingServices {
 	
@@ -61,5 +62,6 @@ public interface ParkingServices {
 	UserParkingInfoDTO updateUserParkingInfo(int id, String location, String type, String classification, String terms,
 			double price, String discount, double totalAmount);
 
+	//void updateProfilePicture(String email, byte[] newProfilePicture);
 
 }

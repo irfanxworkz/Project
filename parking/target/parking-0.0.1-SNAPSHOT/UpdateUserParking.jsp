@@ -1,15 +1,14 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>User-Page</title>
-
 <!-- Link of JQuery cdn -->
     <script src= "https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"> </script>
-<!-- Checkbox disable or enable -->        
+<!-- Checkbox disable or enable -->  
+      
 <script>
 	$(document).ready(function () {
 		  $('#myCheckbox').click(function () {
@@ -22,7 +21,6 @@
 		var type=document.getElementById("type").value;
 		var classification=document.getElementById("classification").value;
 		var terms=document.getElementById("terms").value;
-		
 		if(location=="" || location==null && type=="" || type==null && classification=="" || classification==null && terms=="" || terms==null){
 			document.getElementById('validate').innerHTML="please fill the form";
 			return false;
@@ -77,7 +75,6 @@
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css">
 	<link rel="stylesheet" href="Parking.css">
-
 </head>
 <header>
 	<div class="fixed-header">
@@ -90,38 +87,34 @@
 <body>
 		<div class="container">
 	<form action="updateInfo" method="post" onsubmit="return validateFields()" style="background-color: white; margin-top: 10px;margin-bottom: 10px; margin-left: 200px; margin-right: 200px; border: 1px solid black; border-radius: 10px;">
-		
-		<span style="color: green;">${UpdateSuccess }</span>
-		<span style="color: red;"></span>
+		<span style="color: red;">${error }</span>
 		<h1 style="color: red; text-align: center;" >Update User Parking</h1>
 		<div class="container">
 			<input type="hidden" value="${parkingData.id }" name="id" >
-			<input type="hidden" value="${parkingData.userId }" name="userId" >
-			
 			<label for="location"><b>Vehicle Location</b></label>
-					<select name="location" class="form-control" id="location">
-					<option value="">${parkingData.location }</option>
+					<select name="location" class="form-control" id="location" required="required">
+					<option value="">Location : ${parkingData.location }</option>
 					<option value="Rajaji-Nagar">Rajaji-Nagar</option>
 					<option value="kurubarahalli">Kurubarahalli</option>
 					<option value="btm">BTM</option>
 					</select>
 			<label for="type"><b>Vehicle Type</b></label>
-					<select name="type" class="form-control" id="type">
-					<option value="">${parkingData.type}</option>
+					<select name="type" class="form-control" id="type" required="required">
+					<option value="">Type : ${parkingData.type}</option>
 					<option value="2 wheeler">2-Wheeler</option>
 					<option value="4 wheeler">4-wheeler</option>
 					</select>
 			<label for="classification"><b>Vehicle Classification</b></label>	
-					<select name="classification" class="form-control" id="classification">
-					<option value="">${parkingData.classification}</option>
+					<select name="classification" class="form-control" id="classification" required="required">
+					<option value="">Classification : ${parkingData.classification}</option>
 					<option value="bmw">BMW</option>
 					<option value="dastun">Dastun</option>
 					<option value="benz">Benz</option>
 					<option value="bike">Bike</option>
 					</select>
 			<label for="terms"><b>Vehicle Terms</b></label>	
-					<select name="terms" class="form-control" onchange="ajaxWithObj()" id="terms">
-					<option value="">${parkingData.terms}</option>
+					<select name="terms" class="form-control" onchange="ajaxWithObj()" id="terms" required="required">
+					<option value="">Terms : ${parkingData.terms}</option>
 					<option value="1-day">1-Day</option>
 					<option value="7-day">7-Days</option>
 					<option value="15-day">15-Days</option>
@@ -131,24 +124,23 @@
 					<option value="365-day">365-Days</option>
 					</select>
 			<label for="price"><b> User Price</b></label>		
-					<input type="text" name="price" class="form-control" placeholder="${parkingData.price }" id="price" readonly="readonly">
+					<input type="text" name="price" class="form-control" placeholder="Price: ${parkingData.price }" id="price" readonly="readonly">
 			<label for="discount"><b>User Discount</b></label>
-					<input type="text" name="discount" class="form-control" placeholder="${parkingData.discount }" id="discount" readonly="readonly">
+					<input type="text" name="discount" class="form-control" placeholder="Discount : ${parkingData.discount }" id="discount" readonly="readonly">
 			<label for="totalAmount"><b>User Total Amount</b></label>
-					<input type="text" name="totalAmount" class="form-control" placeholder="${parkingData.totalAmount }" id="totalAmount" readonly="readonly">
+					<input type="text" name="totalAmount" class="form-control" placeholder="Total Amount: ${parkingData.totalAmount }" id="totalAmount" readonly="readonly">
 			<div class="form-group form-check">
 			    <input type="checkbox" class="form-check-input" id="myCheckbox">
 			    <label class="form-check-label" for="myCheckbox">Check for agreement</label>
 		 	</div>
-	 			 <input type="submit" value="Update" class="btn btn-info" id="myButton" disabled><br><br>
+	 			 <input type="submit" value="Update" class="btn btn-info" id="myButton"><br><br>
 		</div>
 	</form>
 </div>
 </body>
 	<div class="fixed-footer">
 		<footer class="bg-secondary text-white">
-		    <div class="text-center p-3" style="background-color: secondary;">
-		      © 2023 Copyright:
+		    <div class="text-center p-3" style="background-color: secondary;"> © 2023 Copyright:
 		      <a class="text-white" href="https://irfan.xworkz@gmail.com/">irfan.xworkz@gmail.com <span style="color: orange;">[LoginTime:${userInfoDTO.loginTime }]</span></a>
 		    </div>
 		 </footer>

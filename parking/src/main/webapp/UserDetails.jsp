@@ -14,7 +14,8 @@
 <header>
 	<div class="fixed-header">
 		<nav class="navbar navbar-dark bg-secondary justify-content-between">
-		    <img src="https://w7.pngwing.com/pngs/974/17/png-transparent-car-park-parking-computer-icons-parking-text-rectangle-logo-thumbnail.png" alt="" width="60" height="60">
+			<a  href="Home.jsp" class="btn btn-info" type="button">Home</a>
+		    <%-- <img src="data:image/png;base64,${Base64.getEncoder().encodeToString(UserInfoEntity.profilePicture)}" alt="User Picture" width="60" height="60"> --%>
 		    <a style="margin-left: 950px; color: pink;" class="navbar-brand">Welcome,${userInfoDTO.name}</a>
 	 		<a href="UserOTP.jsp" class="btn btn-info" type="button">Logout</a>
  		</nav>

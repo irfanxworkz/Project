@@ -251,5 +251,12 @@ public class ParkingServicesImpl implements ParkingServices {
 	    }
 	    return null;
 	}
+
+	/*
+	@Override
+    public void updateProfilePicture(String email, byte[] newProfilePicture) {
+		repo.updateProfilePicture(email, newProfilePicture);
+    }
+    */
 	
 }

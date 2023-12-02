@@ -138,7 +138,7 @@
 			    <input type="checkbox" class="form-check-input" id="myCheckbox">
 			    <label class="form-check-label" for="myCheckbox">Check for agreement</label>
 		 	</div>
-	 			 <input type="submit" value="Submit" class="btn btn-info" id="myButton" disabled="disabled"><br><br>
+	 			 <input type="submit" value="Submit" class="btn btn-info" id="myButton"><br><br>
 		</div>
 	</form>
 </div>

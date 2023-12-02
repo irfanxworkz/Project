@@ -47,4 +47,6 @@ public interface ParkingRepository{
 	UserParkingInfoEntity updateUserParkingInfo(int id, String location, String type, String classification, String terms, double price,
 			String discount, double totalAmount);
 
+	//void updateProfilePicture(String email, byte[] newProfilePicture);
+
 }

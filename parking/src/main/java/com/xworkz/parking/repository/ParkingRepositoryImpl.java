@@ -55,7 +55,7 @@ public class ParkingRepositoryImpl implements ParkingRepository {
 			e.printStackTrace();
 		}
 		return true;
-	}
+	}	
 
 	//this method for view all parking info by location throw admin */
 	@Override
@@ -229,4 +229,18 @@ public class ParkingRepositoryImpl implements ParkingRepository {
 				}
 			return null;
 		}
+
+	/*
+	@Override
+    @Transactional
+    public void updateProfilePicture(String email, byte[] newProfilePicture) {
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		entityManager.getTransaction().begin();
+		Query query = entityManager.createNamedQuery("updateProfilePicture");
+		query.setParameter("email", email);
+		query.setParameter("profilePicture", profilePicture);
+		query.executeUpdate();
+		entityManager.getTransaction().commit();
+    }
+    */
 	}

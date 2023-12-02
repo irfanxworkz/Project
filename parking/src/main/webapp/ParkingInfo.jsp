@@ -20,10 +20,9 @@
 </header>
 <body>
 	<div class="container">	
-		 	
 		<form action="info" method="post" style="background-color: white;  margin-bottom: 10px; margin-left: 200px; margin-right: 200px; border: 1px solid black; border-radius: 10px;">
 			<span style="margin-left: 70px; color: blue;"> ${msg1 }</span>
-			<br><h1  style="text-align: center; color: red;">Parking Info</h1>
+			<br><h1  style="text-align: center; color: red;">Add Parking Data</h1>
 			<div class="container">
 				<label for="location"><b>Location</b></label>
 				<select name="location" class="form-control" required="required">
@@ -61,7 +60,7 @@
 				<input type="text" name="price" class="form-control" placeholder="Enter Price" required="required">
 				<label for="discount"><b>Discount</b></label>
 				<input type="text" name="discount" class="form-control" placeholder="Enter Discount" required="required"><br>
-				<input class="btn btn-info" type="submit" value="Save"><br>
+				<input class="btn btn-info" type="submit" value="Save"> <a href="ExcelFileForBulk.jsp" class="btn btn-danger" type="button" style="margin-left: 273px;">Add Data In Bulk</a><br><br>
 				<span></span><br>
 			</div>		
 		</form>

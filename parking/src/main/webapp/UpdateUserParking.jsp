@@ -1,15 +1,14 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>User-Page</title>
-
 <!-- Link of JQuery cdn -->
     <script src= "https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"> </script>
-<!-- Checkbox disable or enable -->        
+<!-- Checkbox disable or enable -->  
+      
 <script>
 	$(document).ready(function () {
 		  $('#myCheckbox').click(function () {
@@ -22,7 +21,6 @@
 		var type=document.getElementById("type").value;
 		var classification=document.getElementById("classification").value;
 		var terms=document.getElementById("terms").value;
-		
 		if(location=="" || location==null && type=="" || type==null && classification=="" || classification==null && terms=="" || terms==null){
 			document.getElementById('validate').innerHTML="please fill the form";
 			return false;
@@ -77,7 +75,6 @@
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css">
 	<link rel="stylesheet" href="Parking.css">
-
 </head>
 <header>
 	<div class="fixed-header">
@@ -136,15 +133,14 @@
 			    <input type="checkbox" class="form-check-input" id="myCheckbox">
 			    <label class="form-check-label" for="myCheckbox">Check for agreement</label>
 		 	</div>
-	 			 <input type="submit" value="Update" class="btn btn-info" id="myButton" disabled="disabled"><br><br>
+	 			 <input type="submit" value="Update" class="btn btn-info" id="myButton"><br><br>
 		</div>
 	</form>
 </div>
 </body>
 	<div class="fixed-footer">
 		<footer class="bg-secondary text-white">
-		    <div class="text-center p-3" style="background-color: secondary;">
-		      © 2023 Copyright:
+		    <div class="text-center p-3" style="background-color: secondary;"> © 2023 Copyright:
 		      <a class="text-white" href="https://irfan.xworkz@gmail.com/">irfan.xworkz@gmail.com <span style="color: orange;">[LoginTime:${userInfoDTO.loginTime }]</span></a>
 		    </div>
 		 </footer>

@@ -17,11 +17,10 @@ public class ParkingDefaultController {
 	public ParkingDefaultController() {
 		log.info("Creating no-arg constructor Using ParkingDefaultController!!!");
 	}
-	
 	//this method for Starting Home page Landing page */
 	@GetMapping(value = "/parkingStart")
-	private String onStart(Model model) {
-		model.addAttribute("dto", new ParkingDTO());
+	private String home(Model model) {
+		model.addAttribute("dto", "Running Landing Page Home Page");
 		log.info("Running onStart Method in ParkingDefaultController...");
 		return "/Home.jsp";
 		

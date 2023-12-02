@@ -85,6 +85,7 @@ public class UserParkingInfoController {
 	@PostMapping(value = "/userParkingView")
 	public String viewUserParkingInfo(String viewParkingInfo, Model model, HttpServletRequest req) {
 			UserInfoDTO userInfoDTO2 = this.parkingServices.viewUserData(viewParkingInfo);
+			//TODO : null check
 			List<UserParkingInfoDTO>  userParkingInfoDTO =this.parkingServices.findByUserId(userInfoDTO2.getId());
 			System.err.println("Faching from findByuserId userParkingInfoDTO : "+userParkingInfoDTO);
 			if (userInfoDTO2 != null) {

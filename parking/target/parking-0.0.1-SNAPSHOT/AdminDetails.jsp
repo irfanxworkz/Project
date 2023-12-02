@@ -21,8 +21,8 @@
 </header>
 <body>
 		<pre>
-			<a  href="ParkingInfo.jsp" class="btn btn-info" type="button">Parking Info</a><br>
-		  	<a  href="ViewData.jsp" class="btn btn-info" type="button">View Data</a>
+			<a href="ParkingInfo.jsp" class="btn btn-info" type="button">Add Parking Info</a><br>
+			<a  href="ViewData.jsp" class="btn btn-info" type="button">View Parking Data</a>
 		</pre>  		
 </body>
 	<div class="fixed-footer">

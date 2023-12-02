@@ -13,7 +13,7 @@
 	<div class="fixed-header">
 		<nav class="navbar navbar-dark bg-secondary justify-content-between">
 			<img src="https://w7.pngwing.com/pngs/974/17/png-transparent-car-park-parking-computer-icons-parking-text-rectangle-logo-thumbnail.png" alt="" width="60" height="60">
-		    <a  href="User.jsp" class="btn btn-info" type="button" style="margin-right: 1150px;">Home</a>
+		    <a  href="Home.jsp" class="btn btn-info" type="button" style="margin-right: 1150px;">Home</a>
 		</nav>
 	</div>		
 </header>
