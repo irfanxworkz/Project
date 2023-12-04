@@ -4,6 +4,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 public interface ExcelService {
 
-	boolean saveParkingThrowExcel(MultipartFile file);
+	boolean saveParkingThrowExcel(MultipartFile file1);
 
 }

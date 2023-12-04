@@ -11,32 +11,16 @@ import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-
-import com.xworkz.parking.dto.ExcelDataDTO;
+import com.xworkz.parking.dto.ParkingInfoDTO;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class ExcelUploadService {
 	
-			private static double getDoubleValue(Cell cell) {
-		        if (cell.getCellType() == CellType.NUMERIC) {
-		            return (double) cell.getNumericCellValue();
-		        } else {
-		            return 0.0; // Handle other cell types as needed
-		        }
-		    }
-			private static int getIntValue(Cell cell) {
-			        if (cell.getCellType() == CellType.NUMERIC) {
-			            return (int) cell.getNumericCellValue();
-			        } else {
-			            return 0; // Handle other cell types as needed
-			        }
-			    }
-			 
-			public static List<ExcelDataDTO> getDataFromExcel(InputStream inputStream) {
+			public static List<ParkingInfoDTO> getDataFromExcel(InputStream inputStream) {
 		        log.info("Running getDataFromExcel() method in Util class " + inputStream);
-		        List<ExcelDataDTO> list = new ArrayList<>();
+		       List<ParkingInfoDTO> list = new ArrayList<>();
 		        try {
 		            XSSFWorkbook workbook = new XSSFWorkbook(inputStream);
 		            XSSFSheet sheet = workbook.getSheetAt(0);
@@ -50,29 +34,70 @@ public class ExcelUploadService {
 		                    }
 		                    Iterator<Cell> cellIterator = row.iterator();
 		                    int cellIndex = 0;
-		                    ExcelDataDTO dto = new ExcelDataDTO();
+		                    ParkingInfoDTO dto = new ParkingInfoDTO();
 		                    
 		                    while (cellIterator.hasNext()) {
 		                        Cell cell = cellIterator.next();
 		                        log.info("cell value : " + cell);
 		                    switch (cellIndex) {
-		                        case 0 : 
-		                        		 dto.setLocation(cell.getStringCellValue());
-		                        case 1 : 
-		                        		 dto.setType(cell.getStringCellValue());
-		                        case 2 : 
-		                        		 dto.setClassification(cell.getStringCellValue());
-		                        case 3 :
-		                            	 dto.setTerms(getIntValue(cell));
-		                            	 // dto.setTerms((int) cell.getNumericCellValue());
+			                    case 0 : 
+				                    	if (cell.getCellType() == CellType.NUMERIC) {
+				                        dto.setId((int) cell.getNumericCellValue());
+				                    	} else {
+				                    		log.error("Incorrect format for ID");
+				                    		return null; // Return null for incorrect format
+				                    	}
+				                    break;
+			                    case 1 :
+			                    		if (cell.getCellType() == CellType.STRING) {
+			                            dto.setLocation(cell.getStringCellValue());
+			                    		} else {
+			                    			log.error("Incorrect format for Location");
+			                    			return null;
+			                    		}
+			                    	break;
+		                        case 2 :
+		                        		if (cell.getCellType() == CellType.STRING) {
+		                        		dto.setType(cell.getStringCellValue());
+		                        		} else {
+		                        			log.error("Incorrect format for type");
+				                           return null;
+				                    	}
+		                        		break;
+		                        case 3 : 
+		                        		if (cell.getCellType() == CellType.STRING) {
+		                        		dto.setClassification(cell.getStringCellValue());
+		                        		} else {
+                    						log.error("Incorrect format for Classification");
+                    						return null;
+	                    				}
+		                        	break;
 		                        case 4 :
-		                            	 dto.setPrice(getDoubleValue(cell));
-		                            	 // dto.setPrice((double)cell.getNumericCellValue());
+		                        		if (cell.getCellType() == CellType.STRING) {
+		                            	dto.setTerms(cell.getStringCellValue());
+		                        		} else {
+                    						log.error("Incorrect format for terms");
+                    						return null;
+	                    				}
+		                        	break;
 		                        case 5 :
-		                        		 dto.setDiscount(getIntValue(cell));
-		                        		 // dto.setDiscount((int) cell.getNumericCellValue());
+		                        		if (cell.getCellType() == CellType.NUMERIC) {
+		                        		dto.setPrice((double)cell.getNumericCellValue());
+		                        		} else {
+		                        			log.error("Incorrect format for price");
+		                        			return null;
+		                        		}
+		                        	break;
+		                        case 6 :
+		                        	if (cell.getCellType() == CellType.NUMERIC) {
+		                        		 dto.setDiscount((int)cell.getNumericCellValue());	
+		                        	} else {
+		                    			log.error("Incorrect format Discount");
+		                               return null;
+		                        	}
 		                        default :
 		                                  log.info("default case ..................");
+		                             
 		                    }
 		                        cellIndex++;
 		                    }
@@ -83,8 +108,10 @@ public class ExcelUploadService {
 		                log.error("Excel sheet not found.");
 		            }
 		        } catch (IOException e) {
-		            log.error("Error reading Excel file", e);
+		        	e.printStackTrace();
 		        }
-		        return list;
+		        return null;
 		}
+			
+			
 	}

@@ -32,6 +32,7 @@
 	<h1 style="color: red; text-align: center;">Parking info</h1>
 	<table class="table" id="customers">
 		<tr >
+			<th>Id</th>
 			<th>Location</th>
 			<th>Type</th>
 			<th>Classification</th>
@@ -41,6 +42,7 @@
 		</tr>
 		<c:forEach items="${list}" var="detail">
 			<tr>
+				<td>${detail.id }</td>
 				<td>${detail.location }</td>
 				<td>${detail.type }</td>
 				<td>${detail.classification }</td>

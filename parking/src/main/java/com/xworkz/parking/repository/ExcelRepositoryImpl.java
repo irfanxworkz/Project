@@ -10,8 +10,7 @@ import javax.persistence.PersistenceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.xworkz.parking.dto.ExcelDataDTO;
-import com.xworkz.parking.entity.ExcelEntity;
+import com.xworkz.parking.entity.ParkingInfoEntity;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -23,14 +22,14 @@ public class ExcelRepositoryImpl implements ExcelRepository {
 			private EntityManagerFactory entityManagerFactory;
 	
 			@Override
-			public boolean saveParkinghrowExcel(List<ExcelEntity> entities) {
+			public boolean saveParkinghrowExcel(List<ParkingInfoEntity> entities) {
 				log.info("Running saveParkinghrowExcel() method in ExcelRepositoryImpl...");
 				EntityManager manager = entityManagerFactory.createEntityManager();
 		try {
 		        EntityTransaction transaction = manager.getTransaction();
 		        transaction.begin();
-		        for (ExcelEntity entity : entities) {
-		                manager.persist(entity);
+		        for (ParkingInfoEntity entity : entities) {
+		        	manager.persist(entity);
 		            }
 		            transaction.commit();
 		            return true;

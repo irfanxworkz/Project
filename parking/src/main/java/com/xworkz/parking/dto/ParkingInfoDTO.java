@@ -8,18 +8,12 @@ import lombok.Data;
 public class ParkingInfoDTO implements Serializable, Comparable<ParkingInfoDTO>{
 	
 	private int id;
-	
 	private String location;
-	
 	private String type;
-	
 	private String classification;
-	
 	private String terms;
-	
 	private double price;
-	
-	private String discount;
+	private int discount;
 	
 	@Override
 	public int compareTo(ParkingInfoDTO o) {
